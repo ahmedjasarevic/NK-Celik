@@ -11,6 +11,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    text-align: center;
 }
 
 .contact-info {
@@ -21,11 +22,12 @@
 .contact-info p {
     margin: 0;
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 400;
     letter-spacing: 2px;
     line-height: 11px;
     text-transform: uppercase;
     margin-bottom: 1rem;
+    text-align: center;
 }
 
 .sponsor-section {
@@ -46,8 +48,9 @@
 }
 
 .logo {
-    width: 200px;
-    margin-left: -50px;
+    width: 150px;
+    margin:  0 auto;
+
 }
 
 .right-section {
@@ -67,6 +70,10 @@
     display: flex;
 }
 
+.footer{
+    height: 44vh !important;
+}
+
 .socials a {
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 50%;
@@ -78,6 +85,7 @@
     margin-left: 1rem;
     color: white;
     text-decoration: none;
+    font-weight: 400;
 }
 
 
@@ -117,6 +125,7 @@ button:hover {
 
     .left-section {
         text-align: center;
+        margin-top: 150px;
     }
 
     .left-section button {
