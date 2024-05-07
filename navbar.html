@@ -1,0 +1,41 @@
+<div class="navbar">
+  <div class="navbar-logo">
+    <img src="images/logo.png" alt="NK Celik Logo">
+    <h1 class="ime-kluba">NK Celik</h1>
+  </div>
+
+  <div class="sponsors">
+    <div class="sponsor-logo">
+        <img src="images/sponsors/betole.png" alt="Sponsor 1">
+    </div>
+    <div class="sponsor-logo">
+        <img src="images/sponsors/telemach-logo.png" alt="Sponsor 2">
+    </div>
+    <div class="sponsor-logo">
+        <img src="images/sponsors/Pan.png" alt="Sponsor 3">
+    </div>
+    <div class="sponsor-logo">
+      <img src="images/sponsors/RMLH.png" alt="Sponsor 4">
+  </div>
+  </div>
+
+  <div class="navbar-links">
+    <a class="active" href="#home">Početna</a>
+    <a href="#news">Vijesti</a>
+    <a href="#matches">Utakmice</a>
+    <a href="#club">O klubu</a>
+    <a href="#contact">Kontakt</a>
+  </div>
+
+  <div class="hamburger-menu">&#9776;</div>
+</div>
+
+<script>
+  $(document).ready(function() {
+    $('.hamburger-menu').click(function() {
+      $('.navbar-links').toggleClass('active');
+    });
+  });
+</script>
+
+

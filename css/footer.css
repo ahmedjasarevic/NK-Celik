@@ -1,0 +1,143 @@
+.footer {
+    background-color: black;
+    color: white;
+    padding: 20px 0;
+    position: absolute;
+    min-width: 100%;
+    margin-top: 150px;
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.contact-info {
+    text-align: left;
+}
+
+
+.contact-info p {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    line-height: 11px;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+.sponsor-section {
+    padding: 20px 0;
+    max-height: 100px;
+
+}
+
+.sponsor-logos {
+    display: flex;
+    justify-content: center;
+}
+
+.sponsor-logo {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+}
+
+.logo {
+    width: 200px;
+    margin-left: -50px;
+}
+
+.right-section {
+    text-align: right;
+}
+
+.right-section h1 {
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    line-height: 11px;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+.socials {
+    display: flex;
+}
+
+.socials a {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 1rem;
+    color: white;
+    text-decoration: none;
+}
+
+
+button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 20px 20px;
+    font-size: 22px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: darkred;
+}
+
+
+@media (max-width: 768px) {
+    .footer {
+        height: 80vh;
+    }
+
+    .container {
+        flex-direction: column;
+    }
+
+    .center-section .logo {
+        width: 50px;
+        margin-left: 0px;
+    }
+
+    .left-section .contact-info p {
+        font-size: 10px;
+    }
+
+    .left-section {
+        text-align: center;
+    }
+
+    .left-section button {
+        font-size: 10px;
+        margin-bottom: 10px;
+    }
+
+    .right-section h1 {
+        font-size: 10px !important;
+    }
+
+    .sponsor-section .container {
+        display: flex;
+
+    }
+
+    .sponsor-logos {
+        flex-direction: column;
+    }
+
+    .sponsor-logos img {
+        height: 80px;
+    }
+}

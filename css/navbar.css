@@ -1,0 +1,142 @@
+.navbar {
+    background-color: black;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+    max-height: 100px;
+}
+
+.navbar-logo {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-logo img {
+    height: 70px;
+    margin-right: 10px;
+}
+
+.navbar-links {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+
+.navbar-links a {
+    color: white;
+    text-decoration: none;
+    padding: 12px 24px;
+    margin-right: 15px;
+    border-radius: 25px;
+    font-size: 18px;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.navbar-links a:hover {
+    background-color: red;
+}
+
+.navbar-links a.active {
+    background-color: red;
+}
+
+.sponsors {
+    display: flex;
+    align-items: center;
+    width: 50%;
+    justify-content: space-around;
+}
+
+.sponsor-logo {
+    height: 150px;
+    margin-right: 20px;
+}
+
+.sponsor-logo img {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+}
+
+.ime-kluba {
+    color: white;
+}
+
+.content {
+    height: 100vh;
+}
+
+@media (max-width: 768px) {
+
+    .navbar-links {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        position: fixed;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        padding: 10px 0;
+        background-color: black;
+        transition: transform 0.3s ease;
+        transform: translateY(-100%);
+        max-height: calc(100vh - 100px);
+        overflow-y: auto;
+        z-index: 23;
+    }
+
+    .navbar-links.active {
+        display: flex;
+        transform: translateY(0);
+    }
+
+
+    .navbar-links a {
+        color: white;
+        text-decoration: none;
+        padding: 10px 15px;
+        margin: 5px 0;
+        border-radius: 20px;
+    }
+
+    .navbar-links a:hover {
+        background-color: red;
+    }
+
+    .navbar-links a.active {
+        background-color: red;
+    }
+
+    .hamburger-menu {
+        display: block;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    .sponsors {
+        display: none;
+    }
+
+    .ime-kluba {
+        font-size: 15px;
+    }
+}
+
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .sponsors {
+        display: none;
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1124px) {
+    .sponsors {
+        display: none;
+    }
+}
