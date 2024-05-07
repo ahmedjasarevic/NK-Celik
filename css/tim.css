@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+
+body {
+  background: linear-gradient(to bottom, rgb(22, 5, 5), red, black);
+  transition: background 0.5s ease; 
+  font-family: Arial, sans-serif;
+  margin: 0;
+}
+
+
+.season {
+  text-align: center;
+  color: white;
+  font-weight: 400;
+}
+
+.team-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.position-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+}
+
+.position-group h2 {
+  width: 100%;
+  text-align: center;
+  color: white;
+  letter-spacing: 2px;
+}
+
+.team-member {
+  position: relative;
+  width: calc(25% - 20px);
+  margin: 10px;
+  box-sizing: border-box;
+}
+
+.team-member img {
+  width: 100%;
+  border-radius: 5px;
+}
+
+.player-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.player-number {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 5px;
+  border-top-left-radius: 5px;
+  font-size: 35px;
+  font-weight: bold;
+  color: black;
+  text-shadow: 2px 2px 2px hsl(0, 0%, 45%);
+}
+
+.player-name {
+  font-size: 16px;
+  
+  letter-spacing: 2px;
+  color: rgb(226, 17, 17);
+  text-shadow: 2px 2px 2px black;
+}
+
+.player-surname {
+  font-size: 20px;
+  letter-spacing: 1px;
+  font-weight: bold;
+  color: black;
+  text-shadow: 2px 2px 2px hsl(0, 0%, 45%); 
+}
+.position-group:first-child h2,
+.position-group:last-child h2 {
+  text-shadow: 2px 2px 2px red;
+  font-weight: 400;
+}
+
+.position-group:nth-child(2) h2,
+#midfield-group h2 {
+  text-shadow: 2px 2px 2px black;
+  font-weight: 400;
+}
+
+
+.footer{
+    right: 0%;
+}
