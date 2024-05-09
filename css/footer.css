@@ -2,9 +2,8 @@
     background-color: black;
     color: white;
     padding: 20px 0;
-    position: absolute;
-    min-width: 100%;
-    margin-top: 150px;
+    bottom: 0 ;
+    width: 100%;
 }
 
 .container {
@@ -70,9 +69,7 @@
     display: flex;
 }
 
-.footer{
-    height: 44vh !important;
-}
+
 
 .socials a {
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -106,9 +103,7 @@ button:hover {
 
 
 @media (max-width: 768px) {
-    .footer {
-        height: 80vh;
-    }
+
 
     .container {
         flex-direction: column;
@@ -125,7 +120,6 @@ button:hover {
 
     .left-section {
         text-align: center;
-        margin-top: 150px;
     }
 
     .left-section button {
@@ -139,14 +133,46 @@ button:hover {
 
     .sponsor-section .container {
         display: flex;
-
     }
 
-    .sponsor-logos {
-        flex-direction: column;
+    .sponsor-logo {
+        flex-direction: row;
+        width: 70px;
+        margin-right: 5px;
     }
 
-    .sponsor-logos img {
-        height: 80px;
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .sponsor-logo {
+        flex-direction: row;
+        width: 100px;
+        margin-right: 5px;
+    }
+    .contact-info p {
+        font-size: 10px;
+    }
+    button{
+        font-size: 18px;
+        padding: 8px 11px;
+    }
+    .right-section h1{
+        font-size: 9px;
+    }
+
+}
+
+@media (min-width: 1024px) and (max-width: 1324px) {
+    .left-section {
+       width: 50%;
+    }
+
+    .sponsor-logo {
+        flex-direction: row;
+        width: 120px;
+        margin-right: 5px;
+    }
+    .contact-info p{
+        letter-spacing: -1px;
     }
 }
