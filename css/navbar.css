@@ -48,7 +48,7 @@
 .sponsors {
     display: flex;
     align-items: center;
-    width: 50%;
+    width: 35%;
     
 }
 
@@ -133,10 +133,22 @@
     .sponsors {
         display: none;
     }
-}
-
-@media (min-width: 1024px) and (max-width: 1124px) {
-    .sponsors {
-        display: none;
+    .navbar-links a{
+        font-size: 11px;
     }
 }
+
+@media (min-width: 1024px) and (max-width: 1324px) {
+ 
+    .sponsor-logo img{
+        width: 60px;
+    }
+    .navbar-links a{
+        font-size: 11px;
+    }
+    .sponsors{
+        width: 25%;
+    }
+}
+
+

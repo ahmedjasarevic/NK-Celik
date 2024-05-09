@@ -152,56 +152,6 @@ body {
 
 
 
-@media (max-width: 768px) {
-    .news-container, .new-section{
-        flex-direction: column;
-    }
-
-    .news-container .btn{
-        font-size: 10px;
-        padding: 0px 5px;
-    }
-
-    .subtitle{
-        font-size: 10px;
-    }
-
-    .news-container h2{
-        font-size: 16px;
-    }
-    .new-section .news-card, .new-section .news-overlay, .new-section .news-card.small, .new-section img{
-        max-height: 200px !important;
-        min-height: 200px;
-    }
-    .new-section .subtitle{
-        font-size: 10px;
-    }
-    .new-section  h2.title{
-        font-size: 16px;
-    }
-
-    .new-section .btn{
-        font-size: 8px;
-        padding: 0px 1px !important;
-    }
-}
-
-@media (min-width: 768px) and (max-width: 1024px) {
-    .sponsors {
-        display: none;
-    }
-
-    .news-container{
-        flex-direction: column;
-    }
-    .new-section{
-        margin-top: 250px!important;
-        flex-direction: row;
-    }
-
-}
-
-
 .player-stats {
     position: relative;
     display: flex;
@@ -303,4 +253,169 @@ body {
 .stat text{
     color: white;
 }
+
+
+@media (max-width: 768px) {
+    .news-container{
+        flex-direction: column;
+        height: auto;
+    }
+
+    .news-container .btn{
+        font-size: 10px;
+        padding: 0px 5px;
+    }
+
+    .subtitle{
+        font-size: 10px;
+    }
+
+    .news-container h2{
+        font-size: 16px;
+    }
+    .new-section .news-card, .new-section .news-overlay, .new-section .news-card.small, .new-section img{
+        max-height: 200px ;
+        min-height: 200px;
+    }
+    .new-section .subtitle{
+        font-size: 10px;
+    }
+    .new-section  h2.title{
+        font-size: 16px;
+    }
+
+    .new-section .btn{
+        font-size: 8px;
+        padding: 0px 1px ;
+    }
+    
+    .news-container .news-card:nth-child(2) .title,
+    .news-container .news-card:last-child .title {
+        font-size: 17px;
+    }
+
+    .news-container .news-card:nth-child(2) .btn,
+    .news-container .news-card:last-child .btn ,  .new-section .btn{
+        font-size: 12px;
+        width: 100px;
+        height: 30px;
+    }
+   
+    .stats{
+        display: none;
+    }
+    .player-image img{
+        height: 457px;
+        bottom: 0rem;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .player-box .last-name{
+        font-size: 68px;
+        line-height: 68px;
+        z-index: 2;
+        top: unset;
+        bottom: 40px;
+        transform: translateX(-50%);
+        left: 50%;
+    }
+
+    .player-stats .number{
+        font-size: 60px;
+        line-height: 60px;
+        color: #fff;
+        letter-spacing: -4.2px;
+        position: absolute;
+        right: 10px;
+        top: 50px;
+        transform: translateY(-60%);
+    }
+    
+    .topLeft {
+        position: absolute;
+        top: 0;
+        left: -100px;
+    }
+    
+    .new-section {
+        flex-direction: column;
+        align-items: center; 
+    
+    }
+    
+    .new-section .news-card {
+        flex: 0 0 calc(100% - 20px); 
+        max-width: calc(100% - 20px);
+        margin-bottom: 30px; 
+    }
+
+ 
+
+    
+
+}
+
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .sponsors {
+        display: none;
+    }
+
+    .news-container{
+        flex-direction: column;
+        height: auto;
+    }
+    .new-section{
+        margin-top: 150px!important;
+        flex-direction: row;
+    }
+    .player-image img{
+        left: 45%;
+    }
+    .left-section{
+        padding: 0px;
+    }
+
+    .topLeft{
+        position: absolute;
+        top: 0;
+        left: -100px;
+    }
+    .player-box .stats {
+        position: absolute;
+        top: 50px;
+        left: 0px;
+    }
+    .player-image img{
+        height: 457px;
+        bottom: 0rem;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .player-box .last-name{
+        font-size: 68px;
+        line-height: 68px;
+        z-index: 2;
+        top: unset;
+        bottom: 40px;
+        transform: translateX(-50%);
+        left: 50%;
+    }
+
+    .player-stats .number{
+        font-size: 60px;
+        line-height: 60px;
+        color: #fff;
+        letter-spacing: -4.2px;
+        position: absolute;
+        right: 10px;
+        top: 50px;
+        transform: translateY(-60%);
+    }
+    
+    
+}
+
 
