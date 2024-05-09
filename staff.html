@@ -12,38 +12,32 @@
 <body>
     <div id="nav"></div>
     <div class="wrapper">
-
       <h1 class="season">Sezona: 2023/2024</h1>
-      <div class="navigation-buttons-container">
-        <a href="#goalkeeper-group" class="navigation-button">GOLMANI</a>
-        <a href="#defense-group" class="navigation-button">ODBRANA</a>
-        <a href="#midfield-group" class="navigation-button">VEZNI RED</a>
-        <a href="#attack-group" class="navigation-button">NAPAD</a>
-      </div>
 
+      <div class="navigation-buttons-container">
+        <a href="#staffGroup-group" class="navigation-button">STRUČNI ŠTAB</a>
+        <a href="#medGroup-group" class="navigation-button">MEDICINSKO OSOBLJE</a>
+        <a href="#ecoomicGroup-group" class="navigation-button">EKONOMAT</a>
+      </div>
 
       <div class="team-container" id="team-container">
 
-        <div class="position-group" id="goalkeeper-group">
-          <h2 >GOLMANI</h2>
+        <div class="position-group" id="staffGroup-group">
+          <h2 >STRUČNI ŠTAB</h2>
         </div>
 
-        <div class="position-group" id="defense-group">
-          <h2 >ODBRANA</h2>
+        <div class="position-group" id="medGroup-group">
+          <h2 >MEDICINSKO OSOBLJE</h2>
         </div>
 
-        <div class="position-group" id="midfield-group">
-          <h2 >VEZNI RED</h2>
+        <div class="position-group" id="ecoomicGroup-group">
+          <h2 >EKONOMAT</h2>
         </div>
 
-        <div class="position-group" id="attack-group">
-          <h2>NAPAD</h2>
-        </div>
       </div>
-
     </div>
   <div id="footer"></div>
-  <script src="js/prviTim.js"></script>
+  <script src="js/staff.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
       $.get("navbar.html", function(data){
