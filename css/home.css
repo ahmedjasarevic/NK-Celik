@@ -254,6 +254,54 @@ body {
     color: white;
 }
 
+.shop-section {
+    justify-content: space-around;
+    align-items: center;
+    background: url('/images/stadion.png') no-repeat center center/cover;
+    padding: 20px;
+    color: white;
+    height: 700px;
+}
+
+.shop-items {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.shop-item {
+    text-align: center;
+    max-width: 200px; 
+    
+}
+
+.shop-item img {
+    max-height: 230px;
+    border-radius: 10px; 
+}
+
+.shop-item h2 {
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+
+.shop-item p {
+    font-size: 1.1em;
+}
+
+button {
+    background-color: maroon; 
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: red;
+}
 
 @media (max-width: 768px) {
     .news-container{
@@ -332,7 +380,7 @@ body {
         transform: translateY(-60%);
     }
     
-    .topLeft {
+    .player-stats .topLeft {
         position: absolute;
         top: 0;
         left: -100px;
@@ -349,7 +397,19 @@ body {
         max-width: calc(100% - 20px);
         margin-bottom: 30px; 
     }
-
+    .shop-section{
+        height: auto;
+    }
+    .shop-item img{
+        max-height: 150px;
+    }
+    .shop-item{
+        margin-top: 5px;
+    }
+    .shop-items {
+        flex-direction: column;
+        align-items: center;
+    }
  
 
     
@@ -377,7 +437,7 @@ body {
         padding: 0px;
     }
 
-    .topLeft{
+    .player-stats .topLeft{
         position: absolute;
         top: 0;
         left: -100px;
@@ -414,8 +474,43 @@ body {
         top: 50px;
         transform: translateY(-60%);
     }
-    
+    .shop-section{
+        height: auto;
+    }
+    .shop-item img{
+        max-height: 150px;
+    }
+    .shop-item{
+        margin-top: 5px;
+        width: 50%;
+    }
+    .shop-items {
+        flex-direction: row;
+
+        align-items: center;
+    }
     
 }
 
+@media (min-width: 1024px) and (max-width: 1324px) {
+    .shop-section{
+        height: auto;
+    }
+    .shop-item img{
+        max-height: 180px;
+    }
+    .shop-item{
+        margin-top: 5px;
+        width: 50%;
+    }
+    .shop-items {
+        flex-direction: row;
+
+        align-items: center;
+    }
+    .player-image img{
+        left: 50%;
+    }
+
+}
 
