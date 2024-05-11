@@ -53,17 +53,12 @@ p {
 .mreza-novosti1.novost{
   width: 70%;
 }
-@media screen and (max-width: 768px) {
-  .mreza-novosti {
-    grid-template-columns: repeat(1, 1fr);
-  }
-}
 .mreza-novosti1 .novost:first-child {
   margin-right: 20px;
 }
 
 .mreza-novosti1 .novost:last-child {
-  margin-left: 20px;
+  margin-left: 0px;
 }
 .container{
   margin: 0 10%;
@@ -100,7 +95,7 @@ p {
   width: 100%;
   height: 100%;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.3) 100%);
-  opacity: 0.4;
+  opacity: 0.7;
   border-radius: 25px;
 }
 
@@ -135,7 +130,6 @@ p {
 .novost:hover .btn {
   font-size: -20px; 
 }
-
 .novost .tekst-novosti {
   position: absolute;
   bottom: 40px; 
@@ -143,7 +137,62 @@ p {
   color: #fff;
   transition: bottom 0.3s ease;
 }
-
 .novost:hover .tekst-novosti {
   bottom: 30px;
+}
+.novost img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 20px;
+  transition: transform 0.3s ease;
+}
+.novost:hover img {
+  transform: scale(1.05);
+}
+.novost:hover .tekst-novosti p {
+  opacity: 0;
+}
+.novost:not(:hover) .tekst-novosti p {
+  opacity: 1;
+}
+.novost:hover .btn {
+  position: absolute; 
+  bottom: 20px; 
+  left: 50%; 
+  transform: translate(-50%, -50%);
+  transition: bottom 0.5s ease 0.3s;
+}
+.novost:hover h1 {
+  margin-bottom: 40px; 
+}
+.novost:hover h1 {
+  text-shadow: 4px 4px 5px rgba(0, 0, 0, 50); 
+}
+@media screen and (max-width: 500px) {
+  .mreza-novosti {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+@media screen and (max-width: 1025px) {
+  .mreza-novosti1 {
+    display: flex;
+    flex-direction: column;
+  }
+  .mreza-novosti1 .novost {
+    width: 100%;
+    margin-right: auto; 
+    margin-left: auto; 
+  }
+  .tekst-novosti h1 {
+    font-size: 16px;
+  }
+  .tekst-novosti p {
+    font-size: 12px; 
+  }
+  .tekst-novosti .btn {
+    font-size: 12px; 
+  }
+  .novost:hover .tekst-novosti {
+    bottom: 0; 
+  }
 }
