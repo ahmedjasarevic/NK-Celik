@@ -256,17 +256,35 @@ body {
 
 .shop-section {
     justify-content: space-around;
-    align-items: center;
-    background: url('/images/stadion.png') no-repeat center center/cover;
+    align-items:center;
+    background: url('/images/StadionCelik2.jpg') no-repeat center center/cover;
     padding: 20px;
     color: white;
     height: 700px;
+    position: relative; 
 }
+
+.shop-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.shop-section > * {
+    position: relative;
+    z-index: 1;
+}
+
 
 .shop-items {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    margin-top: 8%;
 }
 
 .shop-item {
