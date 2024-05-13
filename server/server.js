@@ -11,6 +11,7 @@ const sessionSecret = crypto.randomBytes(64).toString('hex');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const serverUrl = process.env.SERVER_URL || 'http://localhost:3000';
 app.use(bodyParser.urlencoded({
     extended: true
   }));
@@ -23,7 +24,7 @@ app.use(session({
   
 const url = 'mongodb+srv://ahmed:ahmed123@nkcelik.qj8oewc.mongodb.net/?retryWrites=true&w=majority&appName=NKCelik';
 
-mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(url)
   .then(() => console.log('Connected to MongoDB Atlas'))
   .catch(err => console.error('Error connecting to MongoDB Atlas', err));
 
@@ -69,4 +70,6 @@ app.get('/login', (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
+  console.log(`Home URL: ${serverUrl}/home`);
 });
+

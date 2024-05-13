@@ -23,15 +23,13 @@
   <div class="navbar-links">
     <a href="/home">Početna</a>
     <div class="dropdown">
-      <a href="/tim" class="dropbtn">Tim <span class="dropdown-icon">&#9662;</span></a>
-      <div class="dropdown-content">
+      <a class="dropbtn"onclick="toggleDropdown()">Tim <span class="dropdown-icon">&#9662;</span></a>
+      <div class="dropdown-content" href="/tim"id="myDropdown">
           <a href="/tim">Igrači</a>
           <a href="/staff">Stručni štab</a>
       </div>
-  </div>
-
+    </div>
     <a href="/novosti">Novosti</a>
-    
     <% if (typeof user !== 'undefined' && user) { %>
       <a href="/profile">Profil</a>
       <a href="/logout">Odjava</a>
@@ -39,10 +37,9 @@
 
       <a href="/login">Prijava</a>
     <% } %>
-
-    
     <a href="#contact">Fan Shop</a>
   </div>
+ 
 
   <div class="hamburger-menu">&#9776;</div>
 </div>
@@ -64,6 +61,17 @@
       $('.navbar-links').toggleClass('active');
     });
   });
+
+  function toggleDropdown() {
+    var dropdownContent = document.getElementById("myDropdown");
+    if (dropdownContent.style.display === "block") {
+        dropdownContent.style.display = "none";
+    } else {
+        dropdownContent.style.display = "block";
+    }
+}
+
+  
 </script>
 
 

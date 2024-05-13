@@ -1,9 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 
-
 body {
-  background: linear-gradient(to bottom, rgb(22, 5, 5), red, black);
-  transition: background 0.5s ease; 
+  background:url('/images/StadionCelik2.jpg') ;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   font-family: Arial, sans-serif;
   margin: 0;
 }
@@ -11,7 +12,6 @@ body {
 .wrapper {
   margin: 0 10%;
 }
-
 
 .season {
   text-align: center;
@@ -50,7 +50,7 @@ body {
   border-radius: 5px;
 }
 
-.player-info {
+.player-info , .staff-info {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -59,44 +59,54 @@ body {
   padding: 5px;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
+  transition: height 0.5s, background-color 0.5s;
+  height: 50px;
+  overflow: hidden;
 }
 
-.player-number {
+.team-member:hover .player-info  {
+  height: 100px;
+}
+
+.additional-info {
+  display: none;
+}
+
+.team-member:hover .additional-info {
+  display: block;
+}
+
+.player-number  {
   position: absolute;
   top: 0;
   right: 0;
   background-color: rgba(255, 255, 255, 0.8);
   padding: 5px;
-  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   font-size: 35px;
   font-weight: bold;
   color: black;
   text-shadow: 2px 2px 2px hsl(0, 0%, 45%);
 }
 
-.player-name {
+.player-name , 
+.staff-name{
   font-size: 16px;
-  
   letter-spacing: 2px;
   color: rgb(226, 17, 17);
   text-shadow: 2px 2px 2px black;
 }
 
-.player-surname {
+.player-surname ,
+.staff-surname{
   font-size: 20px;
   letter-spacing: 1px;
   font-weight: bold;
   color: black;
   text-shadow: 2px 2px 2px hsl(0, 0%, 45%); 
 }
-.position-group:first-child h2,
-.position-group:last-child h2 {
-  text-shadow: 2px 2px 2px red;
-  font-weight: 400;
-}
 
-.position-group:nth-child(2) h2,
-#midfield-group h2 {
+.position-group h2 {
   text-shadow: 2px 2px 2px black;
   font-weight: 400;
 }
@@ -104,50 +114,49 @@ body {
 .navigation-buttons-container {
   display: flex;
   justify-content: center;
-  margin-bottom: 20px; /* Adjust as needed */
-  overflow-x: auto; /* Enable horizontal scrolling */
-  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS devices */
+  margin-bottom: 20px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  text-align: center;
 }
 
 .navigation-button {
-  font-size: 1em; /* Adjust size as needed */
-  font-weight: bold; /* Make the text bold */
-  padding: 8px 16px; /* Adjust padding as needed */
-  margin: 0 10px; /* Adjust margin as needed */
+  font-size: 1em;
+  font-weight: bold;
+  padding: 8px 16px;
+  margin: 0 10px;
   background-color: #333;
   color: #fff;
   text-decoration: none;
   border-radius: 5px;
   transition: background-color 0.5s, box-shadow 0.5s;
-  box-shadow: 2px 4px 6px black; /* Add shadow */
+  box-shadow: 2px 4px 6px black;
 }
 
 .navigation-button:hover {
   background-color: red;
-  box-shadow: 2px 6px 8px black; /* Add shadow on hover */
-}
-/* For mobile phones */
-@media only screen and (max-width: 600px) {
-  .team-member {
-    width: 100%; /* Adjust width as needed */
-  }
-  .navigation-button {
-    font-size: 6px; /* Adjust font size as needed */
-    padding: 5px 10px; /* Add padding to the buttons */
-    margin: 0 3px; /* Add margin between buttons */
-  }
-  
+  box-shadow: 2px 6px 8px black;
 }
 
-/* For tablets */
-@media only screen and (min-width: 601px) and (max-width: 1024px) {
+@media only screen and (max-width: 600px) {
   .team-member {
-    width: 45%; /* Adjust width as needed for two pictures */
-    margin: 2.5%; /* Add some margin between elements */
+    width: 100%;
   }
   .navigation-button {
-    font-size: 8px; /* Adjust font size as needed */
-    padding: 10px 20px; /* Add padding to the buttons */
-    margin: 0 5px; /* Add margin between buttons */
+    font-size: 6px;
+    padding: 5px 10px;
+    margin: 0 3px;
+  }
+}
+
+@media only screen and (min-width: 601px) and (max-width: 1024px) {
+  .team-member {
+    width: 45%;
+    margin: 2.5%;
+  }
+  .navigation-button {
+    font-size: 8px;
+    padding: 10px 20px;
+    margin: 0 5px;
   }
 }
