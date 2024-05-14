@@ -70,11 +70,19 @@ app.get('/login', (req, res) => {
   res.render('login', { user, error }); 
 });
 
-app.get('/admin', (req, res) => {
-  News.find().sort({ date: 'desc' }) 
-    .then(newsItems => res.render('admin', { newsItems }))
-    .catch(err => res.status(400).send(err));
+app.get('/admin', async (req, res) => {
+  try {
+    if (!req.session.user || req.session.user.type !== 'admin') {
+      return res.redirect('/home');
+    }
+    const newsItems = await News.find().sort({ date: -1 });
+    res.render('admin', { newsItems });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
 });
+
 
 app.post('/admin', (req, res) => {
   const { title, date, content, imageUrl } = req.body;
