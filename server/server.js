@@ -3,6 +3,7 @@ const session = require('express-session');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const UserController = require('./userController'); 
+const News = require('./news'); 
 const crypto = require('crypto');
 const path = require('path');
 
@@ -52,15 +53,20 @@ app.get('/staff', (req, res) => {
   res.render('staff', { user }); 
 });
 
-app.get('/novosti', (req, res) => {
-  const user = req.session.user; 
-  res.render('novosti', { user }); 
+app.get('/novosti', async (req, res) => {
+  try {
+    const newsArticles = await News.find().sort({ date: -1 }).limit(10); // Fetch latest 10 news articles
+    const user = req.session.user; // Assuming you're using sessions to store user data
+    res.render('novosti', { newsArticles, user }); // Pass both newsArticles and user data to the template
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
 });
 
 
 
 app.get('/login', (req, res) => {
-  console.log('Session User at login:', req.session.user); // Debug output
   const user = req.session.user; 
   const error = req.query.error;
   res.render('login', { user, error }); 

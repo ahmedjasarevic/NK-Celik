@@ -23,23 +23,26 @@
   <div class="navbar-links">
     <a href="/home">Početna</a>
     <div class="dropdown">
-      <a class="dropbtn"onclick="toggleDropdown()">Tim <span class="dropdown-icon">&#9662;</span></a>
+      <a class="dropbtn"  onmouseover="toggleDropdown()" onclick="toggleDropdown()">Tim <span class="dropdown-icon">&#9662;</span></a>
       <div class="dropdown-content" href="/tim"id="myDropdown">
           <a href="/tim">Igrači</a>
           <a href="/staff">Stručni štab</a>
       </div>
     </div>
     <a href="/novosti">Novosti</a>
-    <% if (typeof user !== 'undefined' && user) { %>
-      <a href="/profile">Profil</a>
-      <a href="/logout">Odjava</a>
-    <% } else { %>
-
-      <a href="/login">Prijava</a>
-    <% } %>
-    <a href="#contact">Fan Shop</a>
-  </div>
- 
+      <% if (typeof user !== 'undefined' && user) { %>
+        <% if (user.type === 'admin') { %>
+          <a href="/profile">Admin</a>
+        <% } else { %>
+          <a href="/profile">Profil</a>
+        <% } %>
+        <a href="/logout">Odjava</a>
+      <% } else { %>
+        <a href="/login">Prijava</a>
+      <% } %>
+      <a href="#contact">Fan Shop</a>
+    </div>
+    
 
   <div class="hamburger-menu">&#9776;</div>
 </div>
