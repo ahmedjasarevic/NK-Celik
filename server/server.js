@@ -56,15 +56,13 @@ app.get('/staff', (req, res) => {
 app.get('/novosti', async (req, res) => {
   try {
     const newsArticles = await News.find().sort({ date: -1 }).limit(10); // Fetch latest 10 news articles
-    const user = req.session.user; // Assuming you're using sessions to store user data
-    res.render('novosti', { newsArticles, user }); // Pass both newsArticles and user data to the template
+    const user = req.session.user; 
+    res.render('novosti', { newsArticles, user });
   } catch (err) {
     console.error(err);
     res.status(500).send('Server Error');
   }
 });
-
-
 
 app.get('/login', (req, res) => {
   const user = req.session.user; 
@@ -72,7 +70,31 @@ app.get('/login', (req, res) => {
   res.render('login', { user, error }); 
 });
 
+app.get('/admin', (req, res) => {
+  News.find().sort({ date: 'desc' }) 
+    .then(newsItems => res.render('admin', { newsItems }))
+    .catch(err => res.status(400).send(err));
+});
 
+app.post('/admin', (req, res) => {
+  const { title, date, content, imageUrl } = req.body;
+  const newsItem = new News({
+    title,
+    date: new Date(date),
+    content,
+    imageUrl
+  });
+
+  newsItem.save()
+    .then(() => res.redirect('/admin'))
+    .catch(err => res.status(400).send(err));
+});
+
+app.post('/delete-news/:id', (req, res) => {
+  News.findByIdAndDelete(req.params.id)
+    .then(() => res.redirect('/admin'))
+    .catch(err => res.status(400).send(err));
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
