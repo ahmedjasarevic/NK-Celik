@@ -15,13 +15,13 @@
   <div class="wrapper">
     <div class="novosti">
       <div class="mreza-novosti1">
-        <% newsArticles.slice(0, 2).forEach(article => { %> <!-- Loop through the first 2 news articles -->
+        <% newsArticles.slice(0, 2).forEach(article => { %> 
           <div class="novost">
             <img src="<%= article.imageUrl %>" alt="<%= article.title %>">
             <div class="tekst-novosti">
               <h1><%= article.title %></h1>
               <p>Datum: <%= article.date.toDateString() %></p>
-              <p><%= article.content %></p>
+              <p><%= article.content.split(" ").slice(0, 10).join(" ") %>...</p>
               <a href="#" class="btn btn-maroon">Opširnije</a>
             </div>
           </div>
@@ -34,7 +34,7 @@
             <div class="tekst-novosti">
               <h1><%= article.title %></h1>
               <p>Datum: <%= article.date.toDateString() %></p>
-              <p><%= article.content %></p>
+              <p><%= article.content.split(" ").slice(0, 10).join(" ") %>...</p>
               <a href="#" class="btn btn-maroon">Opširnije</a>
             </div>
           </div>

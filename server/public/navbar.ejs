@@ -23,10 +23,10 @@
   <div class="navbar-links">
     <a href="/home">Početna</a>
     <div class="dropdown">
-      <a class="dropbtn"  onmouseover="toggleDropdown()" onclick="toggleDropdown()">Tim <span class="dropdown-icon">&#9662;</span></a>
-      <div class="dropdown-content" href="/tim"id="myDropdown">
-          <a href="/tim">Igrači</a>
-          <a href="/staff">Stručni štab</a>
+      <a class="dropbtn" onclick="openDropdown()" id="dropbtn">Tim <span class="dropdown-icon">&#9662;</span></a>
+      <div class="dropdown-content" id="myDropdown">
+        <a href="/tim">Igrači</a>
+        <a href="/staff">Stručni štab</a>
       </div>
     </div>
     <a href="/novosti">Novosti</a>
@@ -65,14 +65,25 @@
     });
   });
 
-  function toggleDropdown() {
-    var dropdownContent = document.getElementById("myDropdown");
-    if (dropdownContent.style.display === "block") {
-        dropdownContent.style.display = "none";
-    } else {
-        dropdownContent.style.display = "block";
-    }
+  function openDropdown() {
+  var dropdownContent = document.getElementById("myDropdown");
+  if (dropdownContent.style.display === "block") {
+    dropdownContent.style.display = "none";
+  } else {
+    dropdownContent.style.display = "block";
+    document.addEventListener('click', closeDropdown);
+    event.stopPropagation();
+  }
 }
+
+function closeDropdown(event) {
+  var dropdownContent = document.getElementById("myDropdown");
+  if (!dropdownContent.contains(event.target)) {
+    dropdownContent.style.display = "none";
+    document.removeEventListener('click', closeDropdown);
+  }
+}
+
 
   
 </script>
