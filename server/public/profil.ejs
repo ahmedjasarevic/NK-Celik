@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>NK Celik</title>
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/profil.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="icon" type="image/x-icon" href="images/logo.png">
+</head>
+<body>
+    <%- include('navbar') -%>
+    <div class="profile-container">
+        <div class="profile-header">
+            <img src="images/profileimage.jpg" alt="Profile Image">
+            <h1><%= user.name %></h1>
+            <p><%= user.email %></p>
+        </div>
+        <div class="tickets-section">
+            <h2>Tvoje Karte</h2>
+            <div class="ticket">
+                <img src="https://www.shop.nkcelik.ba/wp-content/uploads/2023/04/Kupon-ulaznica-mockup.png" alt="Ticket Image">
+                <p class="ticket-name">Celik - Sarajevo</p>
+            </div>
+            <div class="ticket">
+                <img src="https://www.shop.nkcelik.ba/wp-content/uploads/2023/04/Kupon-ulaznica-mockup.png" alt="Ticket Image">
+                <p class="ticket-name">Ime utakmice 1</p>
+            </div>
+        </div>
+        
+        <div class="fanshop-section">
+            <h2>Tvoje Kupovine</h2>
+            <div class="ticket">
+                <img src="images/fanshop/dres.png" alt="Ticket Image">
+                <p class="ticket-name">Dres 2023/24</p>
+            </div>
+            
+        </div>
+    </div>
+    <%- include('footer') -%>
+</body>
+</html>

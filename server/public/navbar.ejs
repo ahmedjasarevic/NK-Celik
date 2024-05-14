@@ -32,9 +32,9 @@
     <a href="/novosti">Novosti</a>
       <% if (typeof user !== 'undefined' && user) { %>
         <% if (user.type === 'admin') { %>
-          <a href="/profile">Admin</a>
+          <a href="/admin">Admin</a>
         <% } else { %>
-          <a href="/profile">Profil</a>
+          <a href="/profil">Profil</a>
         <% } %>
         <a href="/logout">Odjava</a>
       <% } else { %>
