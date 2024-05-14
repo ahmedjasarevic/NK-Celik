@@ -73,6 +73,13 @@ app.get('/login', (req, res) => {
 });
 
 
+app.get('/profil', (req, res) => {
+  const user = req.session.user; 
+  const error = req.query.error;
+  res.render('profil', { user, error }); 
+});
+
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
