@@ -197,3 +197,17 @@ p {
     bottom: 0; 
   }
 }
+
+
+.novost .tekst-novosti {
+  min-width: 90%;
+}
+
+.mreza-novosti .novost, .mreza-novosti .novost img{
+  height: 300px;
+}
+
+.mreza-novosti .novost h1{
+  font-size: 25px !important;
+}
+
