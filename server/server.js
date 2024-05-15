@@ -70,6 +70,12 @@ app.get('/login', (req, res) => {
   res.render('login', { user, error }); 
 });
 
+app.get('/fanshop', (req, res) => {
+  const user = req.session.user; 
+  const error = req.query.error;
+  res.render('fanshop', { user, error }); 
+});
+
 app.get('/admin', async (req, res) => {
   try {
     if (!req.session.user || req.session.user.type !== 'admin') {
