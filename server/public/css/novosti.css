@@ -205,6 +205,7 @@ p {
 
 .mreza-novosti .novost, .mreza-novosti .novost img{
   height: 300px;
+  width: 100%;
 }
 
 .mreza-novosti .novost h1{
