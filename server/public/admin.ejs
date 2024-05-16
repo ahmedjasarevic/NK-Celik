@@ -16,52 +16,138 @@
     <img src="images/StadionCelik2.jpg" alt="Background Image" class="background-image">
 </div>
     <div class="wrapper">
-        <div class="left">
-          <h1>Dodaj vijesti</h1>
-          <form action="/admin" method="POST">
+      
+          <div class="left">
+            <h1>Dodaj vijesti</h1>
+            <form action="/admin" method="POST">
+              <div>
+                <label for="title">Naslov</label>
+                <input type="text" id="title" placeholder="Naslov vijesti" name="title" required>
+              </div>
+              <div>
+                  <label for="date">Datum</label>
+                  <input type="date" id="date"placeholder="Unesi datum" name="date" required>
+              </div>
+              <div>
+                <label for="content">Sadrzaj</label>
+                <textarea id="content" placeholder="Unesi sadrzaj vijesti" name="content" required></textarea>
+              </div>
+              <div>
+                <label for="imageUrl">Slika</label>
+                <input type="text" id="imageUrl" placeholder="Unesi link slike" name="imageUrl" required>
+              </div>
+              <button type="submit">Dodaj</button>
+            </form>
+          </div>
+          <div class="right">
+              <h1>Obrisi vijesti</h1>
+              <ul>
+                <% newsItems.forEach(news => { %>
+                  <li class="news-item">
+                    
+                      <div class="news-header">
+                          <strong><%= news.title %></strong>
+                          <small><%= news.content.split(" ").slice(0, 10).join(" ") %>...</small>
+                      </div>
+                      <div class="date_delete">
+                      <small class="news-date"><%= new Date(news.date).toLocaleDateString() %></small>
+                      <form action="/delete-news/<%= news._id %>" method="POST" class="delete-form">
+                        <button type="submit" class="delete-button">
+                          <i class="fas fa-trash-alt"></i>
+                        </button>
+                      </form>
+                      </div>
+                  
+                  </li>
+                <% }) %>
+              </ul>
+            </div>
+        
+
+        <div class="bottom-left">
+          <h1>Dodaj proizvod u fan shop</h1>
+          <form action="/admin/fanshop/add" method="POST">
             <div>
-              <label for="title">Naslov</label>
-              <input type="text" id="title" placeholder="Naslov vijesti" name="title" required>
+              <label for="name">Naziv proizvoda</label>
+              <input type="text" id="name" placeholder="Naziv proizvoda" name="name" required>
             </div>
             <div>
-                <label for="date">Datum</label>
-                <input type="date" id="date"placeholder="Unesi datum" name="date" required>
+              <label for="size">Veličina</label>
+              <select id="size" name="size" required>
+                <option value="S">S</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
+                <option value="XL">XL</option>
+                <option value="XXL">XXL</option>
+              </select>
             </div>
             <div>
-              <label for="content">Sadrzaj</label>
-              <textarea id="content" placeholder="Unesi sadrzaj vijesti" name="content" required></textarea>
+              <label for="price">Cijena</label>
+              <input type="number" id="price" placeholder="Cijena" name="price" required>
             </div>
             <div>
-              <label for="imageUrl">Slika</label>
-              <input type="text" id="imageUrl" placeholder="Unesi link slike" name="imageUrl" required>
+              <label for="description">Opis</label>
+              <textarea id="description" placeholder="Opis proizvoda" name="description" required></textarea>
             </div>
-            <button type="submit">Dodaj</button>
+            <div>
+              <label for="imageUrl">URL slike</label>
+              <input type="text" id="imageUrl" placeholder="URL slike" name="imageUrl" required>
+            </div>
+            <div>
+              <label for="quantity">Količina</label>
+              <input type="number" id="quantity" placeholder="Količina na stanju" name="quantity" required>
+            </div>
+            <button type="submit">Dodaj proizvod</button>
           </form>
         </div>
-        <div class="right">
-            <h1>Obrisi vijesti</h1>
-            <ul>
-              <% newsItems.forEach(news => { %>
-                <li class="news-item">
-                  
-                    <div class="news-header">
-                        <strong><%= news.title %></strong>
-                        <small><%= news.content.split(" ").slice(0, 10).join(" ") %>...</small>
-                    </div>
-                    <div class="date_delete">
-                    <small class="news-date"><%= new Date(news.date).toLocaleDateString() %></small>
-                    <form action="/delete-news/<%= news._id %>" method="POST" class="delete-form">
-                      <button type="submit" class="delete-button">
-                        <i class="fas fa-trash-alt"></i>
-                      </button>
-                    </form>
-                    </div>
-                
-                </li>
-              <% }) %>
-            </ul>
-          </div>
-      </div>
+        <div class="bottom-right">
+          <h1>Obriši proizvod iz fan shopa</h1>
+          <ul>
+            <% fanShopItems.forEach(item => { %>
+              <li class="fan-shop-item">
+                <div class="item-image">
+                  <img style="width: 50px; height: 50px; cursor: pointer;" src="<%= item.imageUrl %>" alt="<%= item.name %>" onclick="openModal('<%= item.imageUrl %>')">
+                </div>
+                <div class="fan-shop-header">
+                  <strong><%= item.name %></strong>
+                  <small>Veličina: <%= item.size %> | Količina: <%= item.quantity %></small>
+                </div>
+                <div class="fan-shop-delete">
+                  <form action="/admin/fanshop/delete/<%= item._id %>" method="POST" class="delete-form">
+                    <input class="delete-number" type="number" id="deleteQuantity" name="deleteQuantity" placeholder="Količina za brisanje / <%= item.quantity %>" min="1" max="<%= item.quantity %>" required>
+                    <button type="submit" class="delete-button">
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
+                  </form>
+                </div>
+              </li>
+            <% }) %>
+          </ul>
+        </div>
+        
+    </div>
+    <div id="myModal" class="modal">
+      <span class="close">&times;</span>
+      <img id="modalImg" class="modal-content" src="" alt="Popup Image">
+    </div>
+    
+
+<%- include('footer') -%>
+
+<script>
+  var modal = document.getElementById("myModal");
+  var modalImg = document.getElementById("modalImg");
+
+  function openModal(imageUrl) {
+    modal.style.display = "block";
+    modalImg.src = imageUrl;
+  }
+
+  var span = document.getElementsByClassName("close")[0];
+
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+</script>
 </body>
 </html>
-    <%- include('footer') -%>
