@@ -62,6 +62,23 @@ app.get('/novosti', async (req, res) => {
     console.error(err);
     res.status(500).send('Server Error');
   }
+
+});
+app.get('/novosti/:title/:id', async (req, res) => {
+  try {
+    const newsArticle = await News.findById(req.params.id);
+    const user = req.session.user; 
+    if (!newsArticle) {
+      return res.status(404).send('News article not found');
+    }
+    if (req.params.title !== newsArticle.title.toLowerCase().replace(/ /g, '-')) {
+      return res.redirect(`/novosti/${newsArticle.title.toLowerCase().replace(/ /g, '-')}/${newsArticle._id}`);
+    }
+    res.render('novostiDetalji', { newsArticle, user });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Internal Server Error');
+  }
 });
 
 app.get('/login', (req, res) => {
