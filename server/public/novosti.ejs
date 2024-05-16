@@ -22,7 +22,8 @@
               <h1><%= article.title %></h1>
               <p>Datum: <%= article.date.toDateString() %></p>
               <p><%= article.content.split(" ").slice(0, 10).join(" ") %>...</p>
-              <a href="#" class="btn btn-maroon">Opširnije</a>
+              <!-- Inside the loop where you display news articles -->
+<a href="/novosti/<%= article.title.toLowerCase().replace(/ /g, '-') %>/<%= article._id %>" class="btn btn-maroon opširnije-btn">Opširnije</a>
             </div>
           </div>
         <% }) %>
@@ -35,7 +36,9 @@
               <h1><%= article.title %></h1>
               <p>Datum: <%= article.date.toDateString() %></p>
               <p><%= article.content.split(" ").slice(0, 10).join(" ") %>...</p>
-              <a href="#" class="btn btn-maroon">Opširnije</a>
+             <!-- Inside the loop where you display news articles -->
+<a href="/novosti/<%= article.title.toLowerCase().replace(/ /g, '-') %>/<%= article._id %>" class="btn btn-maroon opširnije-btn">Opširnije</a>
+
             </div>
           </div>
         <% }) %>
