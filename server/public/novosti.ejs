@@ -22,21 +22,19 @@
               <h1><%= article.title %></h1>
               <p>Datum: <%= article.date.toDateString() %></p>
               <p><%= article.content.split(" ").slice(0, 10).join(" ") %>...</p>
-              <!-- Inside the loop where you display news articles -->
 <a href="/novosti/<%= article.title.toLowerCase().replace(/ /g, '-') %>/<%= article._id %>" class="btn btn-maroon opširnije-btn">Opširnije</a>
             </div>
           </div>
         <% }) %>
       </div>
       <div class="mreza-novosti">
-        <% newsArticles.slice(2).forEach(article => { %> <!-- Loop through the rest of the news articles -->
+        <% newsArticles.slice(2).forEach(article => { %>
           <div class="novost">
             <img src="<%= article.imageUrl %>" alt="<%= article.title %>">
             <div class="tekst-novosti">
               <h1><%= article.title %></h1>
               <p>Datum: <%= article.date.toDateString() %></p>
               <p><%= article.content.split(" ").slice(0, 10).join(" ") %>...</p>
-             <!-- Inside the loop where you display news articles -->
 <a href="/novosti/<%= article.title.toLowerCase().replace(/ /g, '-') %>/<%= article._id %>" class="btn btn-maroon opširnije-btn">Opširnije</a>
 
             </div>
