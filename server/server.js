@@ -92,7 +92,18 @@ app.get('/fanshop', async (req, res) => {
   res.render('fanshop', { user, error , firstFourFanShopItems});
 });
 
-app.get('/admin', async (req, res) => {
+
+const isAdmin = (req, res, next) => {
+  if (req.session.user && req.session.user.type === 'admin') {
+    next();
+  } else {
+    res.redirect('/home'); 
+  }
+};
+
+
+
+app.get('/admin', isAdmin, async (req, res) => {
   try {
     if (!req.session.user || req.session.user.type !== 'admin') {
       return res.redirect('/home');
