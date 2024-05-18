@@ -51,6 +51,10 @@
     width: 100%;
 }
 
+.hamburger-menu{
+    display: none;
+}
+
 
 .sponsors {
     display: flex;
@@ -150,13 +154,6 @@
         border-radius: 20px;
     }
 
-    .navbar-links a:hover {
-        background-color: red;
-    }
-
-    .navbar-links a.active {
-        background-color: red;
-    }
 
     /* Position the hamburger menu on the right side */
     .hamburger-menu {

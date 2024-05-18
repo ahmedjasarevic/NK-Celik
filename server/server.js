@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const UserController = require('./userController');
 const News = require('./news');
-const FanShopItem = require('./fanshop');
+const FanShopItem = require('./fanshop')
+const Purchase = require('./newsUser');
 const crypto = require('crypto');
 const path = require('path');
 
@@ -39,15 +40,17 @@ app.set('views', path.join(__dirname, 'public'));
 
 app.get('/home', async (req, res) => {
   try {
+    const { user } = req.session;
     const newsArticles = await News.find().sort({ date: -1 }).limit(3);
     const newsArticlesSmall = await News.find().sort({ date: -1 }).skip(3).limit(4);
-    res.render('home', { newsArticles, user: req.session.user , newsArticlesSmall});
+    const firstFourFanShopItems = await FanShopItem.find().limit(4);
+    res.render('home', { newsArticles, user, newsArticlesSmall, firstFourFanShopItems });
   } catch (err) {
     console.error(err);
     res.status(500).send('Server Error');
   }
-
 });
+
 app.get('/tim', (req, res) => res.render('tim', { user: req.session.user }));
 app.get('/staff', (req, res) => res.render('staff', { user: req.session.user }));
 
@@ -83,9 +86,10 @@ app.get('/login', (req, res) => {
   res.render('login', { user, error });
 });
 
-app.get('/fanshop', (req, res) => {
+app.get('/fanshop', async (req, res) => {
   const { user, error } = req.session;
-  res.render('fanshop', { user, error });
+  const firstFourFanShopItems = await FanShopItem.find().sort({ _id: 1 }).limit(4);
+  res.render('fanshop', { user, error , firstFourFanShopItems});
 });
 
 app.get('/admin', async (req, res) => {
@@ -94,7 +98,7 @@ app.get('/admin', async (req, res) => {
       return res.redirect('/home');
     }
     const newsItems = await News.find().sort({ date: -1 });
-    const fanShopItems = await FanShopItem.find();
+    const fanShopItems = await FanShopItem.find().limit(4);
     res.render('admin', { newsItems, fanShopItems });
   } catch (err) {
     console.error(err);
@@ -102,10 +106,73 @@ app.get('/admin', async (req, res) => {
   }
 });
 
-app.get('/profil', (req, res) => {
-  const { user, error } = req.session;
-  res.render('profil', { user, error });
+app.get('/profil', async (req, res) => {
+  try {
+    const { user, error, successMessage } = req.session;
+    req.session.successMessage = null;
+
+    if (!user) {
+      return res.redirect('/login');
+    }
+
+    // Retrieve purchases for the logged-in user
+    const purchases = await Purchase.find({ userId: user._id }).populate('itemId');
+
+    // Count occurrences of each purchased item
+    const itemCounts = {};
+    purchases.forEach(purchase => {
+      const itemId = purchase.itemId._id.toString(); // Convert ObjectId to string for comparison
+      if (itemCounts[itemId]) {
+        itemCounts[itemId].count++;
+      } else {
+        itemCounts[itemId] = {
+          name: purchase.itemId.name,
+          count: 1,
+          imageUrl: purchase.itemId.imageUrl
+        };
+      }
+    });
+
+    // Map the purchased items to include count and imageUrl
+    const purchasedItems = Object.values(itemCounts);
+
+    res.render('profil', { user, error, successMessage, purchasedItems });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
 });
+
+
+
+
+app.post('/add-to-cart', async (req, res) => {
+  console.log(req.body);
+  try {
+      const { user } = req.session;
+      const { itemId } = req.body
+
+      if (!user) {
+          return res.status(401).send('Unauthorized');
+      }
+
+      if (!itemId) {
+          return res.status(400).send('itemId is required');
+      }
+      const purchase = new Purchase({
+        userId: user._id,
+        itemId
+    });
+      await purchase.save();
+
+
+      res.redirect('/profil');
+  } catch (error) {
+      console.error(error);
+      res.status(500).send('Internal Server Error');
+  }
+});
+
 
 app.post('/admin', (req, res) => {
   const { title, date, content, imageUrl } = req.body;
@@ -172,6 +239,20 @@ app.post('/admin/fanshop/delete/:id', async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
+
+app.post('/purchase/:itemId', async (req, res) => {
+  try {
+      const userId = req.session.user._id;
+      const itemId = req.params.itemId;
+      const purchase = new Purchase({ userId, itemId });
+      await purchase.save();
+      res.redirect('/profil');
+  } catch (err) {
+      console.error(err);
+      res.status(500).send('Server Error');
+  }
+});
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

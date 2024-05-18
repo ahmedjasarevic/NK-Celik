@@ -83,39 +83,44 @@
     </div>
 
     <div class="shop-section">
-        
         <div class="topLeft">
-            <h3 class="section-h3">NK CELIK </h3>
+            <h3 class="section-h3">NK CELIK</h3>
             <h2 class="section-h2">FAN SHOP</h2>
         </div>
-        <div class="shop-items"> 
+        <div class="shop-items">
+            <% firstFourFanShopItems.forEach(item => { %>
             <div class="shop-item">
-                <img src="images/fanshop/dukserica.png" alt="Dukserica - Jedina zastava moja">
-                <h2>Dukserica - 1945</h2>
-                <p>67,00 KM</p>
-                <button class="btn btn-maroon">Kupi</button>
+                <img src="<%= item.imageUrl %>" alt="<%= item.name %>">
+                <h2><%= item.name %></h2>
+                <p><%= item.price %> KM</p>
+                <button class="btn btn-maroon btn-buy" data-itemid="<%= item._id %>">Kupi</button>
             </div>
-            <div class="shop-item">
-                <img src="images/fanshop/majica.png" alt="Majica Reflektor 2">
-                <h2>Muška Majica 1945</h2>
-                <p>25,00 KM</p>
-                <button class="btn btn-maroon">Kupi</button>
-            </div>
-            <div class="shop-item">
-                <img src="images/fanshop/duksericaZlatna.png" alt="Dres 2020/21 treća garnitura">
-                <h2>Unisex dukserica - Zlatni grb</h2>
-                <p>99,00 KM</p>
-                <button class="btn btn-maroon">Kupi</button>
-            </div>
-            <div class="shop-item">
-                <img src="images/fanshop/dres.png" alt="Dukserica - trobojna">
-                <h2>DRES 2020/21</h2>
-                <p>62,00 KM</p>
-                <button class="btn btn-maroon">Kupi</button>
-            </div>
+            <% }) %>
         </div>
     </div>
     
+    <script>
+        document.querySelectorAll('.btn-buy').forEach(button => {
+    button.addEventListener('click', async function(event) {
+        event.preventDefault();
+        const itemId = this.getAttribute('data-itemid'); 
+        const response = await fetch('/add-to-cart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ itemId }) 
+        });
+        if (response.ok) {
+                window.location.href = '/profil'; // Redirect to profile page
+            } else {
+                console.error('Failed to add item to cart:', response.statusText);
+                // Handle error (display message, etc.)
+            }
+    });
+});
+
+    </script>
     <%- include('footer') -%>
 
     

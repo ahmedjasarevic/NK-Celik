@@ -11,6 +11,8 @@ const UserController = {
       
       const user = new User({ name, email, password: hashedPassword });
       await user.save();
+      
+      // Set user ID in session as 'id' instead of '_id'
       req.session.user = { id: user._id, name: user.name, email: user.email };
       
       // Redirect the user to the home page after successful registration
