@@ -32,8 +32,9 @@
       </div>
       <div class="configuration-section">
         <p class="section-title">Izaberite Garnituru</p>
-        <div class="gostujuci" >
-          <button>Gostujući dres 2023/2024</button>
+        <div class="velicine">
+          <button class="velicine-btn">Gostujući dres 2023/2024</button>
+          <button class="velicine-btn">Domaći dres 2023/2024</button>
         </div>
         <div class="divider"></div>
         <p>Izaberi Veličinu</p>
@@ -42,15 +43,6 @@
           <button class="velicine-btn">XL</button>
           <button class="velicine-btn">XXL</button>
           <button class="velicine-btn" >XXXL</button>
-        </div>
-        <div>
-          <p class="section-title">Logotip</p>
-          <select>
-            <option selected value="null">Bez odabira</option>
-            <option> Bh Telecom </option>
-            <option> WWin liga BiH </option>
-            <option > Bh Telecom + WWin liga BiH </option>
-          </select>
         </div>
         <div class="divider ng-star-inserted"></div>
         <div>
@@ -97,12 +89,36 @@
             <img src="<%= item.imageUrl %>" alt="<%= item.name %>">
             <h2><%= item.name %></h2>
             <p><%= item.price %> KM</p>
-            <button class="btn btn-maroon">Kupi</button>
+            <button class="btn btn-maroon btn-buy" data-itemid="<%= item._id %>">Kupi</button>
         </div>
         <% }) %>
     </div>
 </div>
 
+
+</div>
+<script>
+  document.querySelectorAll('.btn-buy').forEach(button => {
+button.addEventListener('click', async function(event) {
+  event.preventDefault();
+  const itemId = this.getAttribute('data-itemid'); 
+  const response = await fetch('/add-to-cart', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ itemId }) 
+  });
+  if (response.ok) {
+          window.location.href = '/profil'; // Redirect to profile page
+      } else {
+          console.error('Failed to add item to cart:', response.statusText);
+          // Handle error (display message, etc.)
+      }
+});
+});
+
+</script>
   <%- include('footer') -%>
 </body>
 </html>
