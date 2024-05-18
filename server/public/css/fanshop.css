@@ -156,6 +156,7 @@ body {
   .qty{
     border: 1px solid gray;
     margin-right: 10px;
+    padding-top: 10px;
   }
   .qty-buttons{
     height: 10px;

@@ -207,13 +207,11 @@ app.post('/delete-news/:id', (req, res) => {
 
 app.post('/admin/fanshop/add', async (req, res) => {
   try {
-    const { name, size, category, price, description, imageUrl, quantity } = req.body;
+    const { name, category, price, imageUrl, quantity } = req.body;
     const fanShopItem = new FanShopItem({
       name,
-      size,
       category,
       price,
-      description,
       imageUrl,
       quantity
     });
@@ -269,4 +267,15 @@ app.post('/purchase/:itemId', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
   console.log(`Home URL: ${serverUrl}/home`);
+});
+app.get('/fanshop/:name/:id', async (req, res) => {
+  try {
+    const fanshopItem = await FanShopItem.findById(req.params.id);
+    if (!fanshopItem) {
+      return res.status(404).send('Item not found');
+    }
+    res.render('fanshopPurchase', { fanshopItem });
+  } catch (error) {
+    res.status(500).send('Server Error');
+  }
 });
