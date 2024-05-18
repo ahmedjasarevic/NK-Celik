@@ -22,6 +22,20 @@
     margin-bottom: 10px;
 }
 
+.ticket {
+    display: flex;
+    align-items: center;
+}
+
+.ticket-info {
+    flex: 1; /* Take up remaining space */
+}
+
+.ticket-count {
+    margin-left: auto; /* Move to the right */
+}
+
+
 .profile-header h1 {
     font-size: 24px;
     margin-bottom: 5px;

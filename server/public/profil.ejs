@@ -32,12 +32,15 @@
         
         <div class="fanshop-section">
             <h2>Tvoje Kupovine</h2>
-            <div class="ticket">
-                <img src="images/fanshop/dres.png" alt="Ticket Image">
-                <p class="ticket-name">Dres 2023/24</p>
-            </div>
-            
+            <% purchasedItems.forEach(item => { %>
+                <div class="ticket">
+                    <img src="<%= item.imageUrl %>" alt="<%= item.name %>">
+                    <p class="ticket-name"><%= item.name %></p>
+                    <p class="ticket-count">Kolicina: <%= item.count %></p>
+                </div>
+            <% }) %>
         </div>
+        
     </div>
     <%- include('footer') -%>
 </body>

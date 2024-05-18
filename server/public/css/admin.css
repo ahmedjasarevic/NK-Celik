@@ -217,3 +217,13 @@ button:hover {
 .delete-number{
     font-size: 0.7em;
 }
+
+.add-button{
+    background-color: maroon;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
