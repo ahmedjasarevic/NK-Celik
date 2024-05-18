@@ -37,7 +37,17 @@ app.get('/logout', UserController.logout);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'public'));
 
-app.get('/home', (req, res) => res.render('home', { user: req.session.user }));
+app.get('/home', async (req, res) => {
+  try {
+    const newsArticles = await News.find().sort({ date: -1 }).limit(3);
+    const newsArticlesSmall = await News.find().sort({ date: -1 }).skip(3).limit(4);
+    res.render('home', { newsArticles, user: req.session.user , newsArticlesSmall});
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
+
+});
 app.get('/tim', (req, res) => res.render('tim', { user: req.session.user }));
 app.get('/staff', (req, res) => res.render('staff', { user: req.session.user }));
 

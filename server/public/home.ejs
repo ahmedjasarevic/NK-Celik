@@ -12,64 +12,29 @@
 </head>
 <body>
     <div class="news-container">
-        <div class="news-card large">
-            <img src="https://nkcelik.ba/wp-content/uploads/elementor/thumbs/DSC_4907-scaled-qmbqm7jx6azqxlurebr9zv1gjp0bo7zjqcipkyr154.jpg" alt="News Image 1" class="news-image">
-            <div class="news-overlay">
-                <p class="subtitle">30. KOLO WWIN LIGE</p>
-                <h2 class="title">POBJEDA CRNO-CRVENIH U KISELJAKU</h2>
-                <a href="#" class="btn btn-maroon">Opširnije</a>
+        <% newsArticles.slice(0, 3).forEach((article, index) => { %>
+            <div class="news-card <%= index === 0 ? 'large' : 'small' %>">
+                <img src="<%= article.imageUrl %>" alt="<%= article.title %>" class="news-image">
+                <div class="news-overlay">
+                    <p class="subtitle"><%= article.subtitle %></p>
+                    <h2 class="title"><%= article.title %></h2>
+                    <a href="/novosti/<%= article.title.toLowerCase().replace(/ /g, '-') %>/<%= article._id %>" class="btn btn-maroon">Opširnije</a>
+                </div>
             </div>
-        </div>
-        <div class="news-card small">
-            <img src="https://nkcelik.ba/wp-content/uploads/elementor/thumbs/375061108_2159561997580631_511395721172855853_n-qlr4zu3v28xkekqc5b2velqimbw68oampo1qemp18o.jpg" alt="News Image 2" class="news-image">
-            <div class="news-overlay">
-                <p class="subtitle">22. KOLO WWIN LIGE</p>
-                <h2 class="title">POBJEDA I PORAZ OMLADINACA</h2>
-                <a href="#" class="btn btn-maroon">Opširnije</a>
-            </div>
-        </div>
-        <div class="news-card small">
-            <img src="https://nkcelik.ba/wp-content/uploads/elementor/thumbs/Lovro-Musa-new-player-web-qjzocb4avk9n2ruqxv0jzzb6uhhjxgb927br5dx9qg.png" alt="News Image 3" class="news-image">
-            <div class="news-overlay">
-                <p class="subtitle">TRANSFER</p>
-                <h2 class="title">LOVRO MUSA NOVI IGRAC</h2>
-                <a href="#" class="btn btn-maroon">Opširnije</a>
-            </div>
-        </div>
+        <% }) %>
     </div>
+    
     <div class="new-section">
-        <div class="news-card small">
-            <img src="https://nkcelik.ba/wp-content/uploads/elementor/thumbs/375061108_2159561997580631_511395721172855853_n-qlr4zu3v28xkekqc5b2velqimbw68oampo1qemp18o.jpg" alt="News Image 2" class="news-image">
-            <div class="news-overlay">
-                <p class="subtitle">22. KOLO WWIN LIGE</p>
-                <h2 class="title">POBJEDA I PORAZ OMLADINACA</h2>
-                <a href="#" class="btn btn-maroon mt-md-3">Opširnije</a>
+        <% newsArticlesSmall.slice(0, 4).forEach((article, index) => { %>
+            <div class="news-card small>">
+                <img src="<%= article.imageUrl %>" alt="<%= article.title %>" class="news-image">
+                <div class="news-overlay">
+                    <p class="subtitle"><%= article.subtitle %></p>
+                    <h2 class="title"><%= article.title %></h2>
+                    <a href="/novosti/<%= article.title.toLowerCase().replace(/ /g, '-') %>/<%= article._id %>" class="btn btn-maroon">Opširnije</a>
+                </div>
             </div>
-        </div>
-        <div class="news-card small">
-            <img src="https://nkcelik.ba/wp-content/uploads/elementor/thumbs/375061108_2159561997580631_511395721172855853_n-qlr4zu3v28xkekqc5b2velqimbw68oampo1qemp18o.jpg" alt="News Image 2" class="news-image">
-            <div class="news-overlay">
-                <p class="subtitle">22. KOLO WWIN LIGE</p>
-                <h2 class="title">POBJEDA I PORAZ OMLADINACA</h2>
-                <a href="#" class="btn btn-maroon mt-md-3">Opširnije</a>
-            </div>
-        </div>
-        <div class="news-card small">
-            <img src="https://nkcelik.ba/wp-content/uploads/elementor/thumbs/375061108_2159561997580631_511395721172855853_n-qlr4zu3v28xkekqc5b2velqimbw68oampo1qemp18o.jpg" alt="News Image 2" class="news-image">
-            <div class="news-overlay">
-                <p class="subtitle">22. KOLO WWIN LIGE</p>
-                <h2 class="title">POBJEDA I PORAZ OMLADINACA</h2>
-                <a href="#" class="btn btn-maroon mt-md-3">Opširnije</a>
-            </div>
-        </div>
-        <div class="news-card small">
-            <img src="https://nkcelik.ba/wp-content/uploads/elementor/thumbs/375061108_2159561997580631_511395721172855853_n-qlr4zu3v28xkekqc5b2velqimbw68oampo1qemp18o.jpg" alt="News Image 2" class="news-image">
-            <div class="news-overlay">
-                <p class="subtitle">22. KOLO WWIN LIGE</p>
-                <h2 class="title">POBJEDA I PORAZ OMLADINACA</h2>
-                <a href="#" class="btn btn-maroon mt-md-3">Opširnije</a>
-            </div>
-        </div>
+        <% }) %>
     </div>
     <div class="player-stats">
         <div class="left-section">
