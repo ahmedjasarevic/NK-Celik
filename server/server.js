@@ -109,7 +109,7 @@ app.get('/admin', isAdmin, async (req, res) => {
       return res.redirect('/home');
     }
     const newsItems = await News.find().sort({ date: -1 });
-    const fanShopItems = await FanShopItem.find().limit(4);
+    const fanShopItems = await FanShopItem.find();
     res.render('admin', { newsItems, fanShopItems });
   } catch (err) {
     console.error(err);
@@ -207,10 +207,11 @@ app.post('/delete-news/:id', (req, res) => {
 
 app.post('/admin/fanshop/add', async (req, res) => {
   try {
-    const { name, size, price, description, imageUrl, quantity } = req.body;
+    const { name, size, category, price, description, imageUrl, quantity } = req.body;
     const fanShopItem = new FanShopItem({
       name,
       size,
+      category,
       price,
       description,
       imageUrl,
