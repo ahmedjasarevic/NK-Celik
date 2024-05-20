@@ -70,21 +70,12 @@
           <form action="/admin/fanshop/add" method="POST">
             <div>
               <label for="name">Naziv proizvoda</label>
-              <input type="text" id="name" placeholder="Naziv proizvoda" name="name" required>
-            </div>
-            <div>
-              <label for="size">Veličina</label>
-              <select id="size" name="size" required>
-                <option value="S">S</option>
-                <option value="M">M</option>
-                <option value="L">L</option>
-                <option value="XL">XL</option>
-                <option value="XXL">XXL</option>
-              </select>
+              <input type="text" id="name" placeholder="Unesi naziv proizvoda" name="name" required>
             </div>
             <div>
               <label for="category">Kategorija</label>
               <select id="category" name="category" required>
+                <option value="none" >Odaberi kategoriju</option>
                 <option value="Majica">Majica</option>
                 <option value="Dresovi">Dresovi</option>
                 <option value="Dukserice">Dukserice</option>
@@ -94,10 +85,6 @@
             <div>
               <label for="price">Cijena</label>
               <input type="number" id="price" placeholder="Cijena" name="price" required>
-            </div>
-            <div>
-              <label for="description">Opis</label>
-              <textarea id="description" placeholder="Opis proizvoda" name="description" required></textarea>
             </div>
             <div>
               <label for="imageUrl">URL slike</label>
@@ -120,7 +107,7 @@
                 </div>
                 <div class="fan-shop-header">
                   <strong><%= item.name %></strong>
-                  <small>Veličina: <%= item.size %> | Količina: <%= item.quantity %></small>
+                  <small>Veličina: <%= item.size %> | Cijena: <%= item.price %></small>
                 </div>
                 <div class="fan-shop-delete">
                   <form action="/admin/fanshop/delete/<%= item._id %>" method="POST" class="delete-form">
