@@ -24,37 +24,38 @@
     <div class="product-builder-wrapper">
 
       <div class="image-section">
-        <p class="title">Dres NK Celik</p>
+        <p class="title">Dres NK Čelik</p>
         <div class="image-wrapper">
-          <img src="images/fanshop/dres.png">
+          <img src="images/fanshop/dres.png" class="domaci-dres">
+          <img src="images/gostujuci-removebg-preview.png" class="gostujuci-dres">
         </div>
       </div>
       <div class="configuration-section">
         <p class="section-title">Izaberite Garnituru</p>
         <div class="velicine">
-          <button class="velicine-btn">Gostujući dres 2023/2024</button>
-          <button class="velicine-btn">Domaći dres 2023/2024</button>
+          <button class="velicine-btn garnitura-btn" data-garnitura="domaci">Gostujući dres 2023/2024</button>
+          <button class="velicine-btn garnitura-btn" data-garnitura="gostujuci">Domaći dres 2023/2024</button>
         </div>
         <div class="divider"></div>
         <p>Izaberi Veličinu</p>
         <div class="velicine">
-          <button class="velicine-btn">S</button>
-          <button class="velicine-btn">XL</button>
-          <button class="velicine-btn">XXL</button>
-          <button class="velicine-btn" >XXXL</button>
+          <button class="velicine-btn velicina-btn">L</button>
+          <button class="velicine-btn velicina-btn">XL</button>
+          <button class="velicine-btn velicina-btn">XXL</button>
+          <button class="velicine-btn velicina-btn" >XXXL</button>
         </div>
         <div class="divider ng-star-inserted"></div>
         <div>
           <p class="section-title">Napravite sami</p>
           <div class="radios-wrapper velicine">
             <div style="width: fit-content;">
-              <button class="velicine-btn">Bez natpisa</button>
+              <button class="velicine-btn napravi-btn">Bez natpisa</button>
             </div>
             <div style="width: fit-content;">
-              <button class="velicine-btn">Izaberite igrača</button>
+              <button class="velicine-btn napravi-btn">Izaberite igrača</button>
             </div>
             <div style="width: fit-content;">
-              <button class="velicine-btn">Lično</button>
+              <button class="velicine-btn napravi-btn">Lično</button>
             </div>
           </div>
           <div class="divider"></div>
@@ -66,10 +67,10 @@
         <p>Količina</p>
         <div class="submit-wrapper">
           <div class="qty">
-                <div class="qty-buttons">
-              <button type="button" class="btn-dec" disabled=""> - </button>
-              <span>1</span>
-              <button type="button" class="btn-inc" disabled=""> + </button>
+            <div class="qty-buttons">
+              <button type="button" class="btn-dec" id="decreaseQty"> - </button>
+              <span class="qty-value" id="quantity">1</span>
+              <button type="button" class="btn-inc" id="increaseQty"> + </button>
             </div>
           </div>
           <button class="btn" disabled="">Dodaj u korpu</button>
@@ -93,12 +94,61 @@
       <% }) %>
     </div>
   </div>
-  
-</div>
-
-
-</div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
+$(document).ready(function() {
+  $('.gostujuci-dres').hide();
+
+    // Function to switch between domaći and gostujući dresovi
+    $(".garnitura-btn").click(function() {
+        var garnitura = $(this).data('garnitura');
+        if (garnitura === 'domaci') {
+            $('.domaci-dres').show();
+            $('.gostujuci-dres').hide();
+        } else if (garnitura === 'gostujuci') {
+            $('.domaci-dres').hide();
+            $('.gostujuci-dres').show();
+        }
+    });
+    // Get the initial quantity value
+    var quantity = 1;
+
+    // Function to increase quantity
+    $('#increaseQty').click(function() {
+            quantity++;
+            $('#quantity').text(quantity);
+    });
+
+    // Function to decrease quantity
+    $('#decreaseQty').click(function() {
+        if (quantity > 1) {
+            quantity--;
+            $('#quantity').text(quantity);
+        }
+    });
+
+    // Funkcija za selektovanje samo jednog elementa iz sekcije "Napravite sami"
+    $(".napravi-btn").click(function() {
+        // Ukloni klasu "selected" samo iz buttona u sekciji "Napravite sami"
+        $(".napravi-btn").removeClass("selected");
+        // Dodaj klasu "selected" samo kliknutom buttonu
+        $(this).addClass("selected");
+    });
+    $(".velicina-btn").click(function() {
+        // Ukloni klasu "selected" samo iz buttona u sekciji "Napravite sami"
+        $(".velicina-btn").removeClass("selected");
+        // Dodaj klasu "selected" samo kliknutom buttonu
+        $(this).addClass("selected");
+    });
+    $(".garnitura-btn").click(function() {
+        // Ukloni klasu "selected" samo iz buttona u sekciji "Napravite sami"
+        $(".garnitura-btn").removeClass("selected");
+        // Dodaj klasu "selected" samo kliknutom buttonu
+        $(this).addClass("selected");
+    });
+
+
+});
 
 </script>
   <%- include('footer') -%>

@@ -1,172 +1,188 @@
 body {
-    margin: 0;
-  }
-  
-  .head-section {
-    height: 1000px;
-    background-image: url('/images/fanshop.png');
-    background-size: cover;
-    position: relative;
-    text-align: center;
-    color: white;
-  }
-  
-  .dobrodoslica {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 20px;
-  }
-  
-  .dobrodoslica h1 {
-    font-size: 36px;
-    margin-bottom: 10px;
-  }
-  
-  .dobrodoslica p {
-    font-size: 18px;
-    margin-bottom: 0;
-  }
-  
-  .product-builder-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px;
-    background-color: #d7d7d7;
-    width: 1500px;
-  }
-  
-  .image-section {
-    flex: 1;
-    padding: 20px;
-  }
-  
-  .configuration-section {
-    flex: 1;
-    padding: 20px;
-  }
-  
-  .product-builder-wrapper .title {
-    text-align: left;
-    font-size: 32px;
-    font-family: oswald-bold, sans-serif;
-    font-style: normal;
-    color: #590027;
-  }
+  margin: 0;
+}
 
-  
-  
-  .image-wrapper img {
-    width: 450px;
-    height: auto;
-  }
-  
+.head-section {
+  height: 1000px;
+  background-image: url('/images/fanshop.png');
+  background-size: cover;
+  position: relative;
+  text-align: center;
+  color: white;
+}
 
-  img.logo-image {
-    width: 150px;
+.dobrodoslica {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+}
+
+.dobrodoslica h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.dobrodoslica p {
+  font-size: 18px;
+  margin-bottom: 0;
+}
+
+.product-builder-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: #d7d7d7;
+  width: 1500px;
+}
+
+.image-section {
+  flex: 1;
+  padding: 20px;
+}
+
+.configuration-section {
+  flex: 1;
+  padding: 20px;
+}
+
+.product-builder-wrapper .title {
+  text-align: left;
+  font-size: 32px;
+  font-family: oswald-bold, sans-serif;
+  font-style: normal;
+  color: #590027;
+}
+
+.image-wrapper img {
+  width: 450px;
+  height: auto;
 }
 
 .main-section {
-    display: flex;
-    align-items: center; 
-    justify-content: center;
-    background-color: #f6f6f6;
-    padding: 20px;
-    height: calc(100vh - 200px); 
-    position: relative;
-  }
-  
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  background-color: #f6f6f6;
+  padding: 20px;
+  height: calc(100vh - 200px); 
+  position: relative;
+}
 
-  .gostujuci button{
-    background-color: maroon;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
+.gostujuci button {
+  background-color: maroon;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
+.velicine {
+  display: flex;
+  flex-direction: row;
+}
 
-  .velicine{
-    display: flex;
-    flex-direction: row;
-  }
+.velicine-btn {
+  font-family: oswald-medium, sans-serif;
+  font-style: normal;
+  background-color: #fff;
+  color: #590027;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 10px;
+  font-size: 14px;
+  width: -moz-fit-content !important;
+  width: fit-content !important;
+  border: 1px solid #590027;
+  outline: none;
+  box-shadow: none;
+  margin-right: 10px;
+}
 
-   .velicine-btn{
-    font-family: oswald-medium, sans-serif;
-    font-style: normal;
-    background-color: #fff;
-    color: #590027;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px 10px;
-    font-size: 14px;
-    width: -moz-fit-content !important;
-    width: fit-content !important;
-    border: 1px solid #590027;
-    outline: none;
-    box-shadow: none;
-    margin-right: 10px;
-  }
+.velicine-btn:hover {
+  color: white;
+}
 
-  .velicine button:hover{
-    color: white;
+select {
+  width: 50%;
+  height: 30px;
+  padding: 0 0 0 10px;
+  border: 1px solid #590027;
+  outline: none;
+  box-shadow: none;
+}
 
-  }
+option {
+  font-weight: normal;
+  display: block;
+  min-height: 1.2em;
+  padding: 0px 2px 1px;
+  white-space: nowrap;
+}
 
-   select{
-    width: 50%;
-    height: 30px;
-    padding: 0 0 0 10px;
-    border: 1px solid #590027;
-    outline: none;
-    box-shadow: none;
-  }
+.price-title {
+  font-family: oswald-bold, sans-serif;
+  font-style: normal;
+  font-size: 30px;
+  color: #590027;
+}
 
-  option{
-    font-weight: normal;
-    display: block;
-    min-height: 1.2em;
-    padding: 0px 2px 1px;
-    white-space: nowrap;
-  }
+.btn-dec,
+.btn-inc {
+  border: none;
+  border-radius: 5px;
+  width: 40px;
+  height: 100%;
+  background-color: transparent !important;
+  color: black;
+  margin-top: -15px;
+}
 
-  .price-title{
-    font-family: oswald-bold, sans-serif;
-    font-style: normal;
-    font-size: 30px;
-    color: #590027;
-  }
+.qty {
+  border: 1px solid gray;
+  margin-right: 10px;
+  padding-top: 10px;
+}
 
-  .btn-dec, .btn-inc{
-    border: none;
-    border-radius: 5px;
-    width: 40px;
-    height: 100%;
-    background-color: transparent !important;
-    color: black;
-    margin-top: -15px;
-  }
+.qty-buttons {
+  height: 10px;
+}
 
-  .qty{
-    border: 1px solid gray;
-    margin-right: 10px;
-    padding-top: 10px;
-  }
-  .qty-buttons{
-    height: 10px;
-  }
-  .submit-wrapper{
-    display: flex;
-  }
+.submit-wrapper {
+  display: flex;
+}
 
-  .button-title{
-    margin-top: 0 !important;
-    text-transform: unset !important;
-    height: 40px;
-  }
+.button-title {
+  margin-top: 0 !important;
+  text-transform: unset !important;
+  height: 40px;
+}
+
+/* Stil za selektovane buttone */
+.velicine-btn.selected,
+.garnitura-btn.selected,
+.napravi-btn.selected {
+  background-color: maroon;
+  color: white;
+}
+.shop-items {
+  display: flex;
+  justify-content: space-between; /* Ravnomjerno raspoređivanje elemenata */
+}
+
+.shop-item {
+  width: 20%; /* Postavljamo širinu na 30% kako bi imali 3 slike u jednom redu */
+  margin-bottom: 10px; /* Dodajemo razmak ispod svake slike */
+}
+
+.shop-item img {
+  width: 100%; /* Postavljamo širinu slike na 100% kako bi popunili cijeli kontejner */
+  height: 200px; /* Postavljamo visinu slike na odgovarajuću vrijednost */
+  object-fit: cover; /* Postavljamo da slike popune kontejner i budu proporcionalne */
+}
