@@ -186,3 +186,10 @@ option {
   height: 200px; /* Postavljamo visinu slike na odgovarajuću vrijednost */
   object-fit: cover; /* Postavljamo da slike popune kontejner i budu proporcionalne */
 }
+.btn-svi-artikli {
+  display: block;
+  margin: 20px auto; /* Automatska margina na vrhu i dnu za vertikalno centriranje */
+}
+.btn-svi-artikli {
+  margin-top: 30px;
+}

@@ -1,0 +1,40 @@
+.artikli-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  
+  .artikal-kartica {
+    width: 250px;
+    margin: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px; 
+    padding: 10px; 
+    text-align: center; 
+  }
+  
+  .artikal-kartica img {
+    max-width: 100%; 
+    height: auto;
+    margin-bottom: 10px; 
+  }
+  
+  .artikal-kartica h2 {
+    font-size: 18px; 
+    margin-bottom: 10px; 
+  }
+  
+  .btn-kupi {
+    background-color: maroon; 
+    color: white; 
+    border: none; 
+    padding: 8px 16px; 
+    border-radius: 4px; 
+    text-decoration: none; 
+    display: inline-block; 
+    transition: background-color 0.3s ease; 
+  }
+  
+  .btn-kupi:hover {
+    background-color: darkred; 
+  }

@@ -279,3 +279,12 @@ app.get('/fanshop/:name/:id', async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+app.get('/sviartikli', async (req, res) => {
+  try {
+    const fanShopItems = await FanShopItem.find();
+    res.render('sviartikli', { fanShopItems });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
+});
