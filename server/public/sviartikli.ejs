@@ -10,18 +10,18 @@
   <link rel="stylesheet" href="css/sviartikli.css">
 </head>
 <body>
-    <h1>Svi Artikli</h1>
+    <%- include('navbar') -%>
+    <h1 class="svi">SVI ARTIKLI</h1>
     <div class="artikli-container">
         <% fanShopItems.forEach(item => { %>
             <div class="artikal-kartica">
                 <img src="<%= item.imageUrl %>" alt="<%= item.name %>">
                 <h2><%= item.name %></h2>
-                <p>Category: <%= item.category %></p>
-                <p>Price: $<%= item.price %></p>
-                <p>Quantity: <%= item.quantity %></p>
+                <p>Cijena: <%= item.price %>KM</p>
                 <a href="/fanshop/<%= item.name.toLowerCase().replace(/ /g, '-') %>/<%= item._id %>" class="btn-kupi">Kupi</a>
             </div>
         <% }) %>
     </div>
+    <%- include('footer') -%>
 </body>
 </html>
