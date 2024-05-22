@@ -271,3 +271,6 @@
     display: none;
   }
   
+  .shop-item img{
+    max-width: 200px;
+  }
