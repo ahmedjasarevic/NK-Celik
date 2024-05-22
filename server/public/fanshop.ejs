@@ -24,7 +24,7 @@
     <div class="product-builder-wrapper">
 
       <div class="image-section">
-        <p class="title">Dres NK Čelik</p>
+        <p class="item-title title">Dres NK Čelik</p>
         <div class="image-wrapper">
           <img src="images/fanshop/dres.png" class="domaci-dres">
           <img src="images/gostujuci-removebg-preview.png" class="gostujuci-dres">
@@ -39,10 +39,14 @@
         <div class="divider"></div>
         <p>Izaberi Veličinu</p>
         <div class="velicine">
-          <button class="velicine-btn velicina-btn">L</button>
-          <button class="velicine-btn velicina-btn">XL</button>
-          <button class="velicine-btn velicina-btn">XXL</button>
-          <button class="velicine-btn velicina-btn" >XXXL</button>
+          <button class="velicine-btn velicina-btn" id="sizeS" data-size="S">S</button>
+          <button class="velicine-btn  velicina-btn" id="sizeM" data-size="M">M</button>
+          <button class="velicine-btn  velicina-btn" id="sizeL" data-size="L">L</button>
+          <button class="velicine-btn  velicina-btn" id="sizeXL" data-size="XL">XL</button>
+          <button class="velicine-btn  velicina-btn" id="sizeXXL" data-size="XXL">XXL</button>
+    
+          <input type="hidden" id="selectedSize" name="selectedSize" value="">
+
         </div>
         <div class="divider ng-star-inserted"></div>
         <div>
@@ -73,7 +77,7 @@
               <button type="button" class="btn-inc" id="increaseQty"> + </button>
             </div>
           </div>
-          <button class="btn" disabled="">Dodaj u korpu</button>
+          <button class="add-to-cart-btn">Dodaj u korpu</button>
         </div>
       </div>
     </div>
@@ -101,7 +105,6 @@
 $(document).ready(function() {
   $('.gostujuci-dres').hide();
 
-    // Function to switch between domaći and gostujući dresovi
     $(".garnitura-btn").click(function() {
         var garnitura = $(this).data('garnitura');
         if (garnitura === 'domaci') {
@@ -112,16 +115,15 @@ $(document).ready(function() {
             $('.gostujuci-dres').show();
         }
     });
-    // Get the initial quantity value
     var quantity = 1;
 
-    // Function to increase quantity
+
     $('#increaseQty').click(function() {
             quantity++;
             $('#quantity').text(quantity);
     });
 
-    // Function to decrease quantity
+
     $('#decreaseQty').click(function() {
         if (quantity > 1) {
             quantity--;
@@ -129,27 +131,33 @@ $(document).ready(function() {
         }
     });
 
-    // Funkcija za selektovanje samo jednog elementa iz sekcije "Napravite sami"
     $(".napravi-btn").click(function() {
-        // Ukloni klasu "selected" samo iz buttona u sekciji "Napravite sami"
         $(".napravi-btn").removeClass("selected");
-        // Dodaj klasu "selected" samo kliknutom buttonu
-        $(this).addClass("selected");
-    });
-    $(".velicina-btn").click(function() {
-        // Ukloni klasu "selected" samo iz buttona u sekciji "Napravite sami"
-        $(".velicina-btn").removeClass("selected");
-        // Dodaj klasu "selected" samo kliknutom buttonu
         $(this).addClass("selected");
     });
     $(".garnitura-btn").click(function() {
-        // Ukloni klasu "selected" samo iz buttona u sekciji "Napravite sami"
+
         $(".garnitura-btn").removeClass("selected");
-        // Dodaj klasu "selected" samo kliknutom buttonu
+        $(this).addClass("selected");
+    });
+    $(".velicina-btn").click(function() {
+        $(".velicina-btn").removeClass("selected");
         $(this).addClass("selected");
     });
 
-
+    $('.velicina-btn').click(function() {
+  // Uklonite klasu selected-size sa svih dugmadi za veličinu
+  $('.velicina-btn').removeClass('selected-size');
+  
+  // Dodajte klasu selected-size na odabrano dugme za veličinu
+  $(this).addClass('selected-size');
+  
+  // Dobijte odabranu veličinu iz atributa data
+  var selectedSize = $(this).attr('data-size');
+  
+  // Postavite odabranu veličinu u skriveno polje (hidden input)
+  $('#selectedSize').val(selectedSize);
+});
 });
 
 </script>

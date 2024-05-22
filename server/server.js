@@ -22,6 +22,12 @@ app.use(session({
   saveUninitialized: true
 }));
 
+app.use((req, res, next) => {
+  res.locals.cartItemCount = req.session.cart ? req.session.cart.length : 0;
+  next();
+});
+
+
 const url = 'mongodb+srv://ahmed:ahmed123@nkcelik.qj8oewc.mongodb.net/?retryWrites=true&w=majority&appName=NKCelik';
 
 mongoose.connect(url)
@@ -156,37 +162,9 @@ app.get('/profil', async (req, res) => {
 
 
 
-
-app.post('/add-to-cart', async (req, res) => {
-  console.log(req.body);
-  try {
-      const { user } = req.session;
-      const { itemId } = req.body
-
-      if (!user) {
-          return res.status(401).send('Unauthorized');
-      }
-
-      if (!itemId) {
-          return res.status(400).send('itemId is required');
-      }
-      const purchase = new Purchase({
-        userId: user._id,
-        itemId
-    });
-      await purchase.save();
-
-
-      res.redirect('/profil');
-  } catch (error) {
-      console.error(error);
-      res.status(500).send('Internal Server Error');
-  }
-});
-
-
 app.post('/admin', (req, res) => {
   const { title, date, content, imageUrl } = req.body;
+  
   const newsItem = new News({
     title,
     date: new Date(date),
@@ -270,15 +248,38 @@ app.listen(PORT, () => {
 });
 app.get('/fanshop/:name/:id', async (req, res) => {
   try {
+    const { user, error, successMessage } = req.session;
     const fanshopItem = await FanShopItem.findById(req.params.id);
     if (!fanshopItem) {
       return res.status(404).send('Item not found');
     }
-    res.render('fanshopPurchase', { fanshopItem });
+    res.render('fanshopPurchase', { fanshopItem, user, error, successMessage });
   } catch (error) {
     res.status(500).send('Server Error');
   }
 });
+
+
+app.post('/add-to-cart', (req, res) => {
+  if (!req.session.cart) {
+    req.session.cart = [];
+  }
+
+  const { name, price, imageUrl, quantity, size } = req.body; 
+  const item = { name, price, imageUrl, quantity, size }; 
+  req.session.cart.push(item);
+
+  res.json({ success: true, cartItemCount: req.session.cart.length });
+});
+
+
+app.get('/cart-items', (req, res) => {
+  const cart = req.session.cart || [];
+  res.json({ cart });
+});
+
+
+
 app.get('/sviartikli', async (req, res) => {
   try {
     const fanShopItems = await FanShopItem.find();
@@ -288,3 +289,4 @@ app.get('/sviartikli', async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
