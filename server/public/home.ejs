@@ -93,34 +93,13 @@
                 <img src="<%= item.imageUrl %>" alt="<%= item.name %>">
                 <h2><%= item.name %></h2>
                 <p><%= item.price %> KM</p>
-                <button class="btn btn-maroon btn-buy" data-itemid="<%= item._id %>">Kupi</button>
+                <a href="/fanshop/<%= item.name.toLowerCase().replace(/ /g, '-') %>/<%= item._id %>" class="btn btn-maroon btn-buy">Kupi</a>
             </div>
             <% }) %>
         </div>
     </div>
     
-    <script>
-        document.querySelectorAll('.btn-buy').forEach(button => {
-    button.addEventListener('click', async function(event) {
-        event.preventDefault();
-        const itemId = this.getAttribute('data-itemid'); 
-        const response = await fetch('/add-to-cart', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ itemId }) 
-        });
-        if (response.ok) {
-                window.location.href = '/profil'; // Redirect to profile page
-            } else {
-                console.error('Failed to add item to cart:', response.statusText);
-                // Handle error (display message, etc.)
-            }
-    });
-});
-
-    </script>
+   
     <%- include('footer') -%>
 
     

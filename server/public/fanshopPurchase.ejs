@@ -27,12 +27,14 @@
         <h1 class="item-title"><%= fanshopItem.name %></h1>
         <p>Izaberi Veličinu</p>
         <div class="velicine">
-          <button class="velicine-btn" id="sizeS">S</button>
-          <button class="velicine-btn" id="sizeM">M</button>
-          <button class="velicine-btn" id="sizeL">L</button>
-          <button class="velicine-btn" id="sizeXL">XL</button>
-          <button class="velicine-btn" id="sizeXXL">XXL</button>
-        </div>        
+          <button class="velicine-btn" id="sizeS" data-size="S">S</button>
+          <button class="velicine-btn" id="sizeM" data-size="M">M</button>
+          <button class="velicine-btn" id="sizeL" data-size="L">L</button>
+          <button class="velicine-btn" id="sizeXL" data-size="XL">XL</button>
+          <button class="velicine-btn" id="sizeXXL" data-size="XXL">XXL</button>
+          <input type="hidden" id="selectedSize" name="selectedSize" value="">
+
+        </div>
         <div class="divider"></div>
         <div class="price-wrapper">
           <p class="price-title"><%= fanshopItem.price %> BAM</p>
@@ -51,71 +53,40 @@
       </div>
     </div>
   </div>
-
-
-
   <%- include('footer') -%>
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <script>
-  $(document).ready(function() {
-    // Get the initial quantity value
-    var quantity = 1;
+$(document).ready(function() {
+  var quantity = 1;
 
-    // Function to increase quantity
-    $('#increaseQty').click(function() {
-      if (quantity < 4) { // Check if quantity is less than 4
-        quantity++;
-        $('#quantity').text(quantity);
-      }
-    });
-
-    // Function to decrease quantity
-    $('#decreaseQty').click(function() {
-      if (quantity > 1) {
-        quantity--;
-        $('#quantity').text(quantity);
-      }
-    });
-
-    $('.velicine-btn').click(function() {
-      // Remove selected class from all size buttons
-      $('.velicine-btn').removeClass('selected-size');
-      // Add selected class to the clicked size button
-      $(this).addClass('selected-size');
-    });
-
-    // Function to open cart
-    $('.open-cart-btn').click(function() {
-      $('.cart-sidebar').css('width', '250px');
-    });
-
-    // Function to close cart
-    $('.close-cart').click(function() {
-      $('.cart-sidebar').css('width', '0');
-    });
-
-    // Function to add item to cart
-    $('.add-to-cart-btn').click(function() {
-      var productName = $('.item-title').text();
-      var productPrice = $('.price-title').text();
-      var productImage = $('.image-wrapper img').attr('src');
-
-      var cartItem = '<div class="cart-item">' +
-                     '<img src="' + productImage + '" alt="' + productName + '">' +
-                     '<div class="cart-item-details">' +
-                     '<h3>' + productName + '</h3>' +
-                     '<p>' + productPrice + '</p>' +
-                     '</div>' +
-                     '</div>';
-
-      $('.cart-content').append(cartItem);
-      $('.cart-sidebar').css('width', '250px');
-
-      // Update cart item count in the navigation bar
-      var itemCount = parseInt($('.cart-item-count').text());
-      $('.cart-item-count').text(itemCount + 1);
-    });
+  $('#increaseQty').click(function() {
+    quantity++;
+    $('#quantity').text(quantity);
   });
+
+  $('#decreaseQty').click(function() {
+    if (quantity > 1) {
+      quantity--;
+      $('#quantity').text(quantity);
+    }
+  });
+
+  $('.velicine-btn').click(function() {
+  // Uklonite klasu selected-size sa svih dugmadi za veličinu
+  $('.velicine-btn').removeClass('selected-size');
+  
+  // Dodajte klasu selected-size na odabrano dugme za veličinu
+  $(this).addClass('selected-size');
+  
+  // Dobijte odabranu veličinu iz atributa data
+  var selectedSize = $(this).attr('data-size');
+  
+  // Postavite odabranu veličinu u skriveno polje (hidden input)
+  $('#selectedSize').val(selectedSize);
+});
+
+});
+
 </script>
 </html>

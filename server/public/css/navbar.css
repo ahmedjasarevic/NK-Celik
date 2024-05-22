@@ -263,4 +263,11 @@
     font-size: 12px;
   }
   
+  .cart-container{
+    margin-top: 10px;
+  }
+
+  .hidden {
+    display: none;
+  }
   

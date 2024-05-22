@@ -22,6 +22,12 @@ app.use(session({
   saveUninitialized: true
 }));
 
+app.use((req, res, next) => {
+  res.locals.cartItemCount = req.session.cart ? req.session.cart.length : 0;
+  next();
+});
+
+
 const url = 'mongodb+srv://ahmed:ahmed123@nkcelik.qj8oewc.mongodb.net/?retryWrites=true&w=majority&appName=NKCelik';
 
 mongoose.connect(url)
@@ -252,3 +258,23 @@ app.get('/fanshop/:name/:id', async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
+app.post('/add-to-cart', (req, res) => {
+  if (!req.session.cart) {
+    req.session.cart = [];
+  }
+
+  const { name, price, imageUrl, quantity, size } = req.body; 
+  const item = { name, price, imageUrl, quantity, size }; 
+  req.session.cart.push(item);
+
+  res.json({ success: true, cartItemCount: req.session.cart.length });
+});
+
+
+app.get('/cart-items', (req, res) => {
+  const cart = req.session.cart || [];
+  res.json({ cart });
+});
+
+
