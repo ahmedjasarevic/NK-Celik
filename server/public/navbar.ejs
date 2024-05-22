@@ -29,22 +29,34 @@
         <a href="/staff">Stručni štab</a>
       </div>
     </div>
-    <a href="/novosti">Novosti</a>
-      <% if (typeof user !== 'undefined' && user) { %>
-        <% if (user.type === 'admin') { %>
-          <a href="/admin">Admin</a>
-        <% } else { %>
-          <a href="/profil">Profil</a>
-        <% } %>
-        <a href="/logout">Odjava</a>
+    <% if (typeof user !== 'undefined' && user) { %>
+      <% if (user.type === 'admin') { %>
+        <a href="/admin">Admin</a>
       <% } else { %>
-        <a href="/login">Prijava</a>
+        <a href="/profil">Profil</a>
       <% } %>
+      <a href="/novosti">Novosti</a>
+      <a href="/logout">Odjava</a>
       <a href="/fanshop">Fan Shop</a>
+      <div class="cart-container">
+        <a href="#" class="open-cart-btn"><i class="fa fa-shopping-cart"></i></a>
+        <span class="cart-item-count">0</span>
+      </div>
+      <% } else { %>
+      <a href="/novosti">Novosti</a>
+      <a href="/login">Prijava</a>
+      <a href="/fanshop">Fan Shop</a>
+    <% } %>
     </div>
     
 
   <div class="hamburger-menu">&#9776;</div>
+  <div class="cart-sidebar">
+    <div class="cart-content">
+      <!-- Cart items will be displayed here -->
+    </div>
+    <button class="close-cart"><span class="close-icon">X</span></button>
+  </div>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -92,7 +104,17 @@ function closeDropdown(event) {
     }
 }
 
-  
+$(document).ready(function() {
+    // Function to open cart sidebar
+    $('.open-cart-btn').click(function() {
+      $('.cart-sidebar').css('width', '250px');
+    });
+
+    // Function to close cart sidebar
+    $('.close-cart').click(function() {
+      $('.cart-sidebar').css('width', '0');
+    });
+  });
 </script>
 
 

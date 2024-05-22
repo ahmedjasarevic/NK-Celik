@@ -46,11 +46,14 @@
               <button type="button" class="btn-inc" id="increaseQty"> + </button>
             </div>
           </div>
-          <button class="btn add-to-cart-btn">Dodaj u korpu</button>
+          <button class="add-to-cart-btn">Dodaj u korpu</button>
         </div>
       </div>
     </div>
   </div>
+
+
+
   <%- include('footer') -%>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -61,11 +64,11 @@
 
     // Function to increase quantity
     $('#increaseQty').click(function() {
-    if (quantity < 4) { // Check if quantity is less than 4
-      quantity++;
-      $('#quantity').text(quantity);
-    }
-  });
+      if (quantity < 4) { // Check if quantity is less than 4
+        quantity++;
+        $('#quantity').text(quantity);
+      }
+    });
 
     // Function to decrease quantity
     $('#decreaseQty').click(function() {
@@ -74,15 +77,45 @@
         $('#quantity').text(quantity);
       }
     });
-  });
-  $(document).ready(function() {
-  $('.velicine-btn').click(function() {
-    // Remove selected class from all size buttons
-    $('.velicine-btn').removeClass('selected-size');
-    // Add selected class to the clicked size button
-    $(this).addClass('selected-size');
-  });
-});
 
+    $('.velicine-btn').click(function() {
+      // Remove selected class from all size buttons
+      $('.velicine-btn').removeClass('selected-size');
+      // Add selected class to the clicked size button
+      $(this).addClass('selected-size');
+    });
+
+    // Function to open cart
+    $('.open-cart-btn').click(function() {
+      $('.cart-sidebar').css('width', '250px');
+    });
+
+    // Function to close cart
+    $('.close-cart').click(function() {
+      $('.cart-sidebar').css('width', '0');
+    });
+
+    // Function to add item to cart
+    $('.add-to-cart-btn').click(function() {
+      var productName = $('.item-title').text();
+      var productPrice = $('.price-title').text();
+      var productImage = $('.image-wrapper img').attr('src');
+
+      var cartItem = '<div class="cart-item">' +
+                     '<img src="' + productImage + '" alt="' + productName + '">' +
+                     '<div class="cart-item-details">' +
+                     '<h3>' + productName + '</h3>' +
+                     '<p>' + productPrice + '</p>' +
+                     '</div>' +
+                     '</div>';
+
+      $('.cart-content').append(cartItem);
+      $('.cart-sidebar').css('width', '250px');
+
+      // Update cart item count in the navigation bar
+      var itemCount = parseInt($('.cart-item-count').text());
+      $('.cart-item-count').text(itemCount + 1);
+    });
+  });
 </script>
 </html>
