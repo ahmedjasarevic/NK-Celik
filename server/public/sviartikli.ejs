@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Svi Artikli</title>
+  <link rel="stylesheet" href="/path/to/your/styles.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/sviartikli.css">
+</head>
+<body>
+    <h1>Svi Artikli</h1>
+    <div class="artikli-container">
+        <% fanShopItems.forEach(item => { %>
+            <div class="artikal-kartica">
+                <img src="<%= item.imageUrl %>" alt="<%= item.name %>">
+                <h2><%= item.name %></h2>
+                <p>Category: <%= item.category %></p>
+                <p>Price: $<%= item.price %></p>
+                <p>Quantity: <%= item.quantity %></p>
+                <a href="/fanshop/<%= item.name.toLowerCase().replace(/ /g, '-') %>/<%= item._id %>" class="btn-kupi">Kupi</a>
+            </div>
+        <% }) %>
+    </div>
+</body>
+</html>

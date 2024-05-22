@@ -259,6 +259,7 @@ app.get('/fanshop/:name/:id', async (req, res) => {
   }
 });
 
+
 app.post('/add-to-cart', (req, res) => {
   if (!req.session.cart) {
     req.session.cart = [];
@@ -277,4 +278,15 @@ app.get('/cart-items', (req, res) => {
   res.json({ cart });
 });
 
+
+
+app.get('/sviartikli', async (req, res) => {
+  try {
+    const fanShopItems = await FanShopItem.find();
+    res.render('sviartikli', { fanShopItems });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
+});
 
