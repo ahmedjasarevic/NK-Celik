@@ -114,9 +114,10 @@ app.get('/admin', isAdmin, async (req, res) => {
     if (!req.session.user || req.session.user.type !== 'admin') {
       return res.redirect('/home');
     }
+    const { user, error, successMessage } = req.session;
     const newsItems = await News.find().sort({ date: -1 });
     const fanShopItems = await FanShopItem.find();
-    res.render('admin', { newsItems, fanShopItems });
+    res.render('admin', { user, error, successMessage,  newsItems, fanShopItems });
   } catch (err) {
     console.error(err);
     res.status(500).send('Server Error');
@@ -242,10 +243,6 @@ app.post('/purchase/:itemId', async (req, res) => {
 });
 
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-  console.log(`Home URL: ${serverUrl}/home`);
-});
 app.get('/fanshop/:name/:id', async (req, res) => {
   try {
     const { user, error, successMessage } = req.session;
@@ -289,4 +286,22 @@ app.get('/sviartikli', async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+app.post('/delete-from-cart', (req, res) => {
+  if (!req.session.cart) {
+    return res.json({ success: false });
+  }
 
+  const index = req.body.index;
+  if (index !== undefined && index >= 0 && index < req.session.cart.length) {
+    req.session.cart.splice(index, 1);
+    return res.json({ success: true });
+  } else {
+    return res.json({ success: false });
+  }
+});
+
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+  console.log(`Home URL: ${serverUrl}/home`);
+});

@@ -45,6 +45,7 @@ $(document).ready(function() {
       }, function(data) {
         if (data.success) {
           updateCartCount();
+          loadCartItems();
         }
       });
     });
@@ -75,25 +76,35 @@ function closeDropdown(event) {
 }
 
 function loadCartItems() {
-    $.get('/cart-items', function(data) {
-      
-      var cartContent = $('.cart-content');
-  
-      cartContent.empty();
-      data.cart.forEach(function(item) {
-        console.log(item);
-        var cartItem = '<div class="cart-item">' +
-                       '<img src="' + item.imageUrl + '" alt="' + item.name + '">' +
-                       '<div class="cart-item-details">' +
-                       '<h3>' + item.name + ' ' + item.size + ' </h3>' +
-                       '<p>' + item.price + '</p>' +
-                       '<p>Količina: ' + item.quantity + '</p>' +
-                       '</div>' +
-                       '</div>';
-        cartContent.append(cartItem);
+  $.get('/cart-items', function(data) {
+    var cartContent = $('.cart-content');
+    cartContent.empty();
+    data.cart.forEach(function(item, index) {
+      var cartItem = '<div class="cart-item">' +
+                     '<img src="' + item.imageUrl + '" alt="' + item.name + '">' +
+                     '<div class="cart-item-details">' +
+                     '<h3>' + item.name + ' ' + item.size + '</h3>' +
+                     '<p>' + item.price + '</p>' +
+                     '<p>Količina: ' + item.quantity + '</p>' +
+                     '<button class="delete-item-btn" data-index="' + index + '">' +
+                     '<i class="fa fa-trash"></i></button>' +
+                     '</div>' +
+                     '</div>';
+      cartContent.append(cartItem);
+    });
+
+    // Attach click event to delete buttons
+    $('.delete-item-btn').click(function() {
+      var index = $(this).data('index');
+      $.post('/delete-from-cart', { index: index }, function(data) {
+        if (data.success) {
+          loadCartItems(); // Reload cart items
+          updateCartCount(); // Update cart count
+        }
       });
     });
-  }
+  });
+}
   
   function updateCartCount() {
     $.get('/cart-items', function(data) {
@@ -101,4 +112,27 @@ function loadCartItems() {
     });
   }
   
-  
+
+  $(document).ready(function() {
+    var currentUrl = window.location.pathname;
+
+    $('.navbar-links a').each(function() {
+        var linkUrl = $(this).attr('href');
+
+        if (currentUrl === linkUrl) {
+            $(this).addClass('active');
+        }
+    });
+
+    $('.hamburger-menu').click(function() {
+        $('.navbar-links').toggleClass('active');
+        $('.navbar-links').toggleClass('fixed'); // Add or remove fixed class
+    });
+
+    // Close dropdown on outside click
+    $(document).click(function(event) {
+        if (!$(event.target).closest('.dropdown').length && !$(event.target).closest('.hamburger-menu').length) {
+            $('.dropdown-content').hide();
+        }
+    });
+});
