@@ -26,14 +26,15 @@ $(document).ready(function() {
     $('.add-to-cart-btn').click(function() {
       var productName = $('.item-title').text();
       var productPrice = $('.price-title').text();
-      var productImage = $('.image-wrapper img').attr('src');
+      var productImage = $('.image-wrapper img:visible').attr('src');
       var quantity = $('#quantity').text();
       var sizeElement = $('#selectedSize');
       if (sizeElement.length && sizeElement.val()) {
         var size = sizeElement.val();
         console.log(size);
     } else {
-        console.log('Veličina nije pronađena ili nema postavljenu vrijednost.');
+      alert('Morate odabrati veličinu prije dodavanja proizvoda u korpu.');
+      return; 
     }
   
       $.post('/add-to-cart', {
