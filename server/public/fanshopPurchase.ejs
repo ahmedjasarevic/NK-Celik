@@ -27,12 +27,14 @@
         <h1 class="item-title"><%= fanshopItem.name %></h1>
         <p>Izaberi Veličinu</p>
         <div class="velicine">
-          <button class="velicine-btn" id="sizeS">S</button>
-          <button class="velicine-btn" id="sizeM">M</button>
-          <button class="velicine-btn" id="sizeL">L</button>
-          <button class="velicine-btn" id="sizeXL">XL</button>
-          <button class="velicine-btn" id="sizeXXL">XXL</button>
-        </div>        
+          <button class="velicine-btn" id="sizeS" data-size="S">S</button>
+          <button class="velicine-btn" id="sizeM" data-size="M">M</button>
+          <button class="velicine-btn" id="sizeL" data-size="L">L</button>
+          <button class="velicine-btn" id="sizeXL" data-size="XL">XL</button>
+          <button class="velicine-btn" id="sizeXXL" data-size="XXL">XXL</button>
+          <input type="hidden" id="selectedSize" name="selectedSize" value="">
+
+        </div>
         <div class="divider"></div>
         <div class="price-wrapper">
           <p class="price-title"><%= fanshopItem.price %> BAM</p>
@@ -46,42 +48,44 @@
               <button type="button" class="btn-inc" id="increaseQty"> + </button>
             </div>
           </div>
-          <button class="btn add-to-cart-btn">Dodaj u korpu</button>
+          <button class="add-to-cart-btn">Dodaj u korpu</button>
         </div>
       </div>
     </div>
   </div>
   <%- include('footer') -%>
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-  $(document).ready(function() {
-    // Get the initial quantity value
-    var quantity = 1;
 
-    // Function to increase quantity
-    $('#increaseQty').click(function() {
-    if (quantity < 4) { // Check if quantity is less than 4
-      quantity++;
+<script>
+$(document).ready(function() {
+  var quantity = 1;
+
+  $('#increaseQty').click(function() {
+    quantity++;
+    $('#quantity').text(quantity);
+  });
+
+  $('#decreaseQty').click(function() {
+    if (quantity > 1) {
+      quantity--;
       $('#quantity').text(quantity);
     }
   });
 
-    // Function to decrease quantity
-    $('#decreaseQty').click(function() {
-      if (quantity > 1) {
-        quantity--;
-        $('#quantity').text(quantity);
-      }
-    });
-  });
-  $(document).ready(function() {
   $('.velicine-btn').click(function() {
-    // Remove selected class from all size buttons
-    $('.velicine-btn').removeClass('selected-size');
-    // Add selected class to the clicked size button
-    $(this).addClass('selected-size');
-  });
+  // Uklonite klasu selected-size sa svih dugmadi za veličinu
+  $('.velicine-btn').removeClass('selected-size');
+  
+  // Dodajte klasu selected-size na odabrano dugme za veličinu
+  $(this).addClass('selected-size');
+  
+  // Dobijte odabranu veličinu iz atributa data
+  var selectedSize = $(this).attr('data-size');
+  
+  // Postavite odabranu veličinu u skriveno polje (hidden input)
+  $('#selectedSize').val(selectedSize);
+});
+
 });
 
 </script>

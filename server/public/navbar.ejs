@@ -1,23 +1,24 @@
+<!-- navbar.ejs -->
 <div class="navbar">
   <div class="navbar-logo">
     <a href="/home">
-    <img src="/images/logo.png" alt="NK Celik Logo">
-  </a>
+      <img src="/images/logo.png" alt="NK Celik Logo">
+    </a>
   </div>
 
   <div class="sponsors">
     <div class="sponsor-logo">
-        <img src="/images/sponsors/betole.png" alt="Sponsor 1">
+      <img src="/images/sponsors/betole.png" alt="Sponsor 1">
     </div>
     <div class="sponsor-logo">
-        <img src="/images/sponsors/telemach-logo.png" alt="Sponsor 2">
+      <img src="/images/sponsors/telemach-logo.png" alt="Sponsor 2">
     </div>
     <div class="sponsor-logo">
-        <img src="/images/sponsors/Pan.png" alt="Sponsor 3">
+      <img src="/images/sponsors/Pan.png" alt="Sponsor 3">
     </div>
     <div class="sponsor-logo">
       <img src="/images/sponsors/RMLH.png" alt="Sponsor 4">
-  </div>
+    </div>
   </div>
 
   <div class="navbar-links">
@@ -29,70 +30,32 @@
         <a href="/staff">Stručni štab</a>
       </div>
     </div>
-    <a href="/novosti">Novosti</a>
-      <% if (typeof user !== 'undefined' && user) { %>
-        <% if (user.type === 'admin') { %>
-          <a href="/admin">Admin</a>
-        <% } else { %>
-          <a href="/profil">Profil</a>
-        <% } %>
-        <a href="/logout">Odjava</a>
+    <% if (typeof user !== 'undefined' && user) { %>
+      <% if (user.type === 'admin') { %>
+        <a href="/admin">Admin</a>
       <% } else { %>
-        <a href="/login">Prijava</a>
+        <a href="/profil">Profil</a>
       <% } %>
+      <a href="/novosti">Novosti</a>
+      <a href="/logout">Odjava</a>
       <a href="/fanshop">Fan Shop</a>
-    </div>
-    
+      <div class="cart-container">
+        <a href="#" class="open-cart-btn"><i class="fa fa-shopping-cart"></i></a>
+        <span class="cart-item-count<% if (cartItemCount === 0) { %> hidden<% } %>"><%= cartItemCount %></span>
+      </div>
+    <% } else { %>
+      <a href="/novosti">Novosti</a>
+      <a href="/login">Prijava</a>
+      <a href="/fanshop">Fan Shop</a>
+    <% } %>
+  </div>
 
   <div class="hamburger-menu">&#9776;</div>
+  <div class="cart-sidebar">
+    <div class="cart-content">
+    </div>
+    <button class="close-cart"><span class="close-icon">X</span></button>
+  </div>
 </div>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-  $(document).ready(function() {
-    var currentUrl = window.location.pathname;
-
-    $('.navbar-links a').each(function() {
-        var linkUrl = $(this).attr('href');
-
-        if (currentUrl === linkUrl) {
-            $(this).addClass('active');
-        }
-    });
-
-    $('.hamburger-menu').click(function() {
-        $('.navbar-links').toggleClass('active');
-        $('.navbar-links').toggleClass('fixed'); // Add or remove fixed class
-    });
-
-    // Close dropdown on outside click
-    $(document).click(function(event) {
-        if (!$(event.target).closest('.dropdown').length && !$(event.target).closest('.hamburger-menu').length) {
-            $('.dropdown-content').hide();
-        }
-    });
-});
-
-function openDropdown() {
-    var dropdownContent = document.getElementById("myDropdown");
-    if (dropdownContent.style.display === "block") {
-        dropdownContent.style.display = "none";
-    } else {
-        dropdownContent.style.display = "block";
-        document.addEventListener('click', closeDropdown);
-        event.stopPropagation();
-    }
-}
-
-function closeDropdown(event) {
-    var dropdownContent = document.getElementById("myDropdown");
-    if (!dropdownContent.contains(event.target)) {
-        dropdownContent.style.display = "none";
-        document.removeEventListener('click', closeDropdown);
-    }
-}
-
-  
-</script>
-
-
+<script src="/js/navbar.js"></script>

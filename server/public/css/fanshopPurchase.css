@@ -138,3 +138,6 @@ body {
     color: #fff;
   }
   
+  .cart-item-details h3, .cart-item-details p {
+color: black;
+}
