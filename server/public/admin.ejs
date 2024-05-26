@@ -112,7 +112,6 @@
                 </div>
                 <div class="fan-shop-delete">
                   <form action="/admin/fanshop/delete/<%= item._id %>" method="POST" class="delete-form">
-                    <input class="delete-number" type="number" id="deleteQuantity" name="deleteQuantity" placeholder="Količina za brisanje / <%= item.quantity %>" min="1" max="<%= item.quantity %>" required>
                     <button type="submit" class="delete-button">
                       <i class="fas fa-trash-alt"></i>
                     </button>
