@@ -202,7 +202,7 @@
     height: 100%;
     width: 0;
     position: fixed;
-    z-index: 1;
+    z-index: 211;
     top: 0;
     right: 0;
     background-color: #f8f9fa;
@@ -217,7 +217,8 @@
     right: 10px;
     font-size: 30px;
     margin-left: 50px;
-    cursor: pointer;
+    width: 70px;
+    cursor: pointer ;
   }
   
   .cart-sidebar .close-cart:hover {
@@ -267,10 +268,9 @@
     margin-top: 10px;
   }
 
-  .hidden {
-    display: none;
-  }
-  
   .shop-item img{
     max-width: 200px;
+  }
+  .cart-item-details p{
+    color: black !important;
   }
