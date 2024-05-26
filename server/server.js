@@ -171,6 +171,15 @@ app.get('/profil', async (req, res) => {
   }
 });
 
+
+
+app.get('/kontakt', (req, res) => {
+  const { user, error, successMessage } = req.session;
+  res.render('kontakt', { user, error, successMessage });
+});
+
+
+
 app.post('/admin', (req, res) => {
   const { title, date, content, imageUrl } = req.body;
   
