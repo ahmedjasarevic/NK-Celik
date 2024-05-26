@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const UserController = require('./userController');
 const News = require('./news');
 const FanShopItem = require('./fanshop')
-const Purchase = require('./newsUser');
+const Purchase = require('./purchase');
 const crypto = require('crypto');
 const path = require('path');
 
@@ -134,27 +134,37 @@ app.get('/profil', async (req, res) => {
     }
 
     // Retrieve purchases for the logged-in user
-    const purchases = await Purchase.find({ userId: user._id }).populate('itemId');
+    const purchases = await Purchase.find({ userId: user._id });
 
     // Count occurrences of each purchased item
     const itemCounts = {};
-    purchases.forEach(purchase => {
-      const itemId = purchase.itemId._id.toString(); // Convert ObjectId to string for comparison
-      if (itemCounts[itemId]) {
-        itemCounts[itemId].count++;
+    for (const purchase of purchases) {
+      const itemId = purchase.itemId;
+      const quantity = parseInt(purchase.quantity); // Parse quantity as an integer
+
+      // Fetch the FanShopItem using itemId
+      const item = await FanShopItem.findById(itemId);
+
+      if (item) {
+        if (itemCounts[itemId]) {
+          itemCounts[itemId].count += quantity; // Increase count by quantity
+        } else {
+          itemCounts[itemId] = {
+            name: item.name, // Access the name property of the item
+            imageUrl: item.imageUrl, // Access the imageUrl property of the item
+            count: quantity // Set count to quantity
+          };
+        }
       } else {
-        itemCounts[itemId] = {
-          name: purchase.itemId.name,
-          count: 1,
-          imageUrl: purchase.itemId.imageUrl
-        };
+        console.error(`Item not found for itemId: ${itemId}`);
       }
-    });
+    }
 
     // Map the purchased items to include count and imageUrl
     const purchasedItems = Object.values(itemCounts);
 
-    res.render('profil', { user, error, successMessage, purchasedItems });
+    // Pass the purchased items and user data to the profile page
+    res.render('profil', { user, error, successMessage, purchasedItems, cartItemCount: req.session.cart ? req.session.cart.length : 0 });
   } catch (error) {
     console.error(error);
     res.status(500).send('Internal Server Error');
@@ -162,10 +172,12 @@ app.get('/profil', async (req, res) => {
 });
 
 
+
 app.get('/kontakt', (req, res) => {
   const { user, error, successMessage } = req.session;
   res.render('kontakt', { user, error, successMessage });
 });
+
 
 
 app.post('/admin', (req, res) => {
@@ -191,13 +203,12 @@ app.post('/delete-news/:id', (req, res) => {
 
 app.post('/admin/fanshop/add', async (req, res) => {
   try {
-    const { name, category, price, imageUrl, quantity } = req.body;
+    const { name, category, price, imageUrl } = req.body;
     const fanShopItem = new FanShopItem({
       name,
       category,
       price,
       imageUrl,
-      quantity
     });
 
     await fanShopItem.save();
@@ -207,24 +218,22 @@ app.post('/admin/fanshop/add', async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
-
 app.post('/admin/fanshop/delete/:id', async (req, res) => {
   try {
     const itemId = req.params.id;
-    const { deleteQuantity } = req.body;
 
     const item = await FanShopItem.findById(itemId);
 
-    if (!deleteQuantity || isNaN(deleteQuantity) || deleteQuantity <= 0 || deleteQuantity > item.quantity) {
-      return res.status(400).send('Invalid delete quantity');
+    // Provera da li je pronađen proizvod sa datim ID-om
+    if (!item) {
+      return res.status(404).send('Fan shop item not found');
     }
 
-    item.quantity -= deleteQuantity;
-
+    // Ako je količina proizvoda sada manja ili jednaka 0, brišemo proizvod iz baze
     if (item.quantity <= 0) {
       await FanShopItem.findByIdAndDelete(itemId);
     } else {
-      await item.save();
+      await item.save(); // Čuvanje izmenjenog proizvoda
     }
 
     res.redirect('/admin');
@@ -233,6 +242,7 @@ app.post('/admin/fanshop/delete/:id', async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
+
 
 app.post('/purchase/:itemId', async (req, res) => {
   try {
@@ -264,15 +274,45 @@ app.get('/fanshop/:name/:id', async (req, res) => {
 
 app.post('/add-to-cart', (req, res) => {
   if (!req.session.cart) {
-    req.session.cart = [];
+      req.session.cart = [];
   }
 
-  const { name, price, imageUrl, quantity, size } = req.body; 
-  const item = { name, price, imageUrl, quantity, size }; 
+  const { id, name, price, imageUrl, quantity, size } = req.body; 
+  const item = { _id: id, name, price, imageUrl,quantity, size }; 
   req.session.cart.push(item);
 
   res.json({ success: true, cartItemCount: req.session.cart.length });
 });
+
+app.post('/purchase-cart', async (req, res) => {
+  try {
+      const userId = req.session.user._id;
+      const cart = req.session.cart || [];
+
+      if (cart.length === 0) {
+          return res.status(400).send('Cart is empty');
+      }
+      console.log(cart)
+      const purchasePromises = cart.map(item => {
+          return new Purchase({
+              userId,
+              itemId: item._id,  // Ensure the item object contains the _id
+              quantity: item.quantity  // Store quantity if needed
+          }).save();
+      });
+
+      await Promise.all(purchasePromises);
+
+      // Clear the cart after purchase
+      req.session.cart = [];
+
+      res.redirect('/profil');
+  } catch (err) {
+      console.error(err);
+      res.status(500).send('Server Error');
+  }
+});
+
 
 
 app.get('/cart-items', (req, res) => {

@@ -1,4 +1,5 @@
-<!-- navbar.ejs -->  <link rel="icon" type="image/x-icon" href="images/logo.png">
+<!-- navbar.ejs -->
+<link rel="icon" type="image/x-icon" href="images/logo.png">
 <div class="navbar">
   <div class="navbar-logo">
     <a href="/home">
@@ -55,9 +56,26 @@
   <div class="hamburger-menu">&#9776;</div>
   <div class="cart-sidebar">
     <div class="cart-content">
+      <!-- Cart content will be loaded here dynamically -->
     </div>
+    <form id="purchase-form" method="POST" action="/purchase-cart">
+      <button class="purchase-btn" type="submit">Kupi</button>
+    </form>
     <button class="close-cart"><span class="close-icon">X</span></button>
   </div>
 </div>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="/js/navbar.js"></script>
+<script>
+
+$(document).ready(function() {
+  // Handle purchase button click
+  $('.purchase-btn').click(function() {
+    $('#purchase-form').submit();
+  });
+});
+
+
+
+</script>
