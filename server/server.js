@@ -278,12 +278,27 @@ app.get('/cart-items', (req, res) => {
 
 
 app.get('/sviartikli', async (req, res) => {
+  const { categories } = req.query;
+  let filter = {};
+  if (categories) {
+      const categoryArray = categories.split(',');
+      filter = { category: { $in: categoryArray } };
+  }
+
   try {
-    const fanShopItems = await FanShopItem.find();
-    res.render('sviartikli', { fanShopItems });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Server Error');
+      // Fetch all unique categories
+      const allCategories = await FanShopItem.distinct('category');
+
+      // Fetch filtered items based on the category filter
+      const fanShopItems = await FanShopItem.find(filter);
+
+      res.render('sviartikli', {
+          fanShopItems,
+          allCategories
+      });
+  } catch (error) {
+      console.error(error);
+      res.status(500).send('Internal Server Error');
   }
 });
 app.post('/delete-from-cart', (req, res) => {

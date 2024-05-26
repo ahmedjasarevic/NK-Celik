@@ -88,3 +88,24 @@ body {
       max-width: 100%;
   }
 }
+#filter-button {
+    margin-left: 20px; /* Adjust the margin as needed */
+  }
+
+  }
+}
+
+@media (max-width: 768px) {
+  .artikal-kartica {
+      flex: 1 1 calc(33.33% - 20px); /* Three cards per row on tablets */
+      max-width: calc(33.33% - 20px);
+  }
+}
+
+@media (max-width: 480px) {
+  .artikal-kartica {
+      flex: 1 1 100%; /* One card per row on phones */
+      max-width: 100%;
+  }
+}
+
