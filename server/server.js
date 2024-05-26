@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const UserController = require('./userController');
 const News = require('./news');
 const FanShopItem = require('./fanshop')
-const Purchase = require('./newsUser');
+const Purchase = require('./purchase');
 const crypto = require('crypto');
 const path = require('path');
 
@@ -134,24 +134,31 @@ app.get('/profil', async (req, res) => {
     }
 
     // Retrieve purchases for the logged-in user
-    const purchases = await Purchase.find({ userId: user._id }).populate('itemId');
+    const purchases = await Purchase.find({ userId: user._id });
 
     // Count occurrences of each purchased item
     const itemCounts = {};
-    purchases.forEach(purchase => {
-      const itemId = purchase.itemId._id.toString(); // Convert ObjectId to string for comparison
-      const quantity = parseInt(purchase.itemId.quantity); // Parse quantity as an integer
-      console.log(purchase)
-      if (itemCounts[itemId]) {
-        itemCounts[itemId].count += quantity; // Increase count by quantity
+    for (const purchase of purchases) {
+      const itemId = purchase.itemId;
+      const quantity = parseInt(purchase.quantity); // Parse quantity as an integer
+
+      // Fetch the FanShopItem using itemId
+      const item = await FanShopItem.findById(itemId);
+
+      if (item) {
+        if (itemCounts[itemId]) {
+          itemCounts[itemId].count += quantity; // Increase count by quantity
+        } else {
+          itemCounts[itemId] = {
+            name: item.name, // Access the name property of the item
+            imageUrl: item.imageUrl, // Access the imageUrl property of the item
+            count: quantity // Set count to quantity
+          };
+        }
       } else {
-        itemCounts[itemId] = {
-          name: purchase.itemId.name,
-          count: quantity, // Set count to quantity
-          imageUrl: purchase.itemId.imageUrl
-        };
+        console.error(`Item not found for itemId: ${itemId}`);
       }
-    });
+    }
 
     // Map the purchased items to include count and imageUrl
     const purchasedItems = Object.values(itemCounts);
@@ -163,7 +170,6 @@ app.get('/profil', async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
-
 
 app.post('/admin', (req, res) => {
   const { title, date, content, imageUrl } = req.body;
@@ -262,8 +268,8 @@ app.post('/add-to-cart', (req, res) => {
       req.session.cart = [];
   }
 
-  const { id, name, price, imageUrl, size } = req.body; 
-  const item = { _id: id, name, price, imageUrl, size }; 
+  const { id, name, price, imageUrl, quantity, size } = req.body; 
+  const item = { _id: id, name, price, imageUrl,quantity, size }; 
   req.session.cart.push(item);
 
   res.json({ success: true, cartItemCount: req.session.cart.length });

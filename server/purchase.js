@@ -7,5 +7,8 @@ const purchaseSchema = new Schema({
   quantity: { type: Number, default: 1 }  // Add quantity field
 });
 
+// Registrovanje modela FanShopItem pre njegove upotrebe
+const FanShopItem = mongoose.model('FanShopItem', new Schema({}));
 const Purchase = mongoose.model('Purchase', purchaseSchema);
+
 module.exports = Purchase;
