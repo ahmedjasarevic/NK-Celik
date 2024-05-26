@@ -282,11 +282,22 @@ app.get('/cart-items', (req, res) => {
 
 app.get('/sviartikli', async (req, res) => {
   try {
-    const fanShopItems = await FanShopItem.find();
+    const { category } = req.query;
+    let filter = {};
+
+    if (category) {
+      const categoryArray = categoriy.split(',');
+      filter.category = { $in: categoryArray };
+    }
+
+    console.log('Filter:', filter); // Debugging line
+
+    const fanShopItems = await FanShopItem.find(filter);
     res.render('sviartikli', { fanShopItems });
   } catch (err) {
     console.error(err);
     res.status(500).send('Server Error');
   }
 });
+
 

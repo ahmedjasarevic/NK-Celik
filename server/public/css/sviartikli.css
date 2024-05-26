@@ -88,3 +88,7 @@ body {
       max-width: 100%;
   }
 }
+#filter-button {
+    margin-left: 20px; /* Adjust the margin as needed */
+  }
+
