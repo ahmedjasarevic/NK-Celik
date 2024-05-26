@@ -281,22 +281,27 @@ app.get('/cart-items', (req, res) => {
 
 
 app.get('/sviartikli', async (req, res) => {
+  const { categories } = req.query;
+  let filter = {};
+  if (categories) {
+      const categoryArray = categories.split(',');
+      filter = { category: { $in: categoryArray } };
+  }
+
   try {
-    const { category } = req.query;
-    let filter = {};
+      // Fetch all unique categories
+      const allCategories = await FanShopItem.distinct('category');
 
-    if (category) {
-      const categoryArray = categoriy.split(',');
-      filter.category = { $in: categoryArray };
-    }
+      // Fetch filtered items based on the category filter
+      const fanShopItems = await FanShopItem.find(filter);
 
-    console.log('Filter:', filter); // Debugging line
-
-    const fanShopItems = await FanShopItem.find(filter);
-    res.render('sviartikli', { fanShopItems });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Server Error');
+      res.render('sviartikli', {
+          fanShopItems,
+          allCategories
+      });
+  } catch (error) {
+      console.error(error);
+      res.status(500).send('Internal Server Error');
   }
 });
 

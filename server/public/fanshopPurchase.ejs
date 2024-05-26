@@ -25,6 +25,7 @@
       </div>
       <div class="configuration-section">
         <h1 class="item-title"><%= fanshopItem.name %></h1>
+        <% if (fanshopItem.category !== 'Karte') { %>
         <p>Izaberi Veličinu</p>
         <div class="velicine">
           <button class="velicine-btn" id="sizeS" data-size="S">S</button>
@@ -35,6 +36,9 @@
           <input type="hidden" id="selectedSize" name="selectedSize" value="">
 
         </div>
+        <% } else { %>
+          <input type="hidden" id="selectedSize" name="selectedSize" value=" ">
+        <% } %>
         <div class="divider"></div>
         <div class="price-wrapper">
           <p class="price-title"><%= fanshopItem.price %> BAM</p>
