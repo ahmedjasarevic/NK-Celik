@@ -12,36 +12,41 @@
 </head>
 <body>
     <%- include('navbar') -%>
-    <div class="profile-container">
-        <div class="profile-header">
-            <img src="images/profileimage.jpg" alt="Profile Image">
-            <h1><%= user.name %></h1>
-            <p><%= user.email %></p>
-        </div>
-        <div class="tickets-section">
-            <h2>Tvoje Karte</h2>
-            <div class="ticket">
-                <img src="https://www.shop.nkcelik.ba/wp-content/uploads/2023/04/Kupon-ulaznica-mockup.png" alt="Ticket Image">
-                <p class="ticket-name">Celik - Sarajevo</p>
-            </div>
-            <div class="ticket">
-                <img src="https://www.shop.nkcelik.ba/wp-content/uploads/2023/04/Kupon-ulaznica-mockup.png" alt="Ticket Image">
-                <p class="ticket-name">Ime utakmice 1</p>
-            </div>
-        </div>
-        
-        <div class="fanshop-section">
-            <h2>Tvoje Kupovine</h2>
-            <% purchasedItems.forEach(item => { %>
+<div class="profile-container">
+    <div class="profile-header">
+        <img src="images/profileimage.jpg" alt="Profile Image">
+        <h1><%= user.name %></h1>
+        <p><%= user.email %></p>
+    </div>
+    
+    <div class="tickets-section">
+        <h2>Tvoje Karte</h2>
+        <% purchasedItems.forEach(item => { %>
+            <% if (item.productCategory === 'Karte') { %>
                 <div class="ticket">
                     <img src="<%= item.imageUrl %>" alt="<%= item.name %>">
                     <p class="ticket-name"><%= item.name %></p>
-                    <p class="ticket-count">Kolicina: <%= item.count %></p>
+                    <p class="ticket-count">Količina: <%= item.count %></p>
                 </div>
-            <% }) %>
-        </div>
-        
+            <% } %>
+        <% }) %>
     </div>
-    <%- include('footer') -%>
+    
+    <div class="fanshop-section">
+        <h2>Tvoje Kupovine</h2>
+        <% purchasedItems.forEach(item => { %>
+
+            <% if (item.productCategory !== 'Karte') { %>
+                <div class="ticket">
+                    <img src="<%= item.imageUrl %>" alt="<%= item.name %>">
+                    <p class="ticket-name"><%= item.name %></p>
+                    <p class="ticket-count">Količina: <%= item.count %></p>
+                </div>
+            <% } %>
+        <% }) %>
+    </div>
+</div>
+<%- include('footer') -%>
+
 </body>
 </html>

@@ -133,18 +133,17 @@ app.get('/profil', async (req, res) => {
       return res.redirect('/login');
     }
 
-    // Retrieve purchases for the logged-in user
     const purchases = await Purchase.find({ userId: user._id });
 
-    // Count occurrences of each purchased item
     const itemCounts = {};
     for (const purchase of purchases) {
       const itemId = purchase.itemId;
-      const quantity = parseInt(purchase.quantity); // Parse quantity as an integer
+      const quantity = parseInt(purchase.quantity);
+      const productCategory = purchase.productCategory; // Parse quantity as an integer
 
       // Fetch the FanShopItem using itemId
       const item = await FanShopItem.findById(itemId);
-
+      console.log(productCategory)
       if (item) {
         if (itemCounts[itemId]) {
           itemCounts[itemId].count += quantity; // Increase count by quantity
@@ -152,7 +151,8 @@ app.get('/profil', async (req, res) => {
           itemCounts[itemId] = {
             name: item.name, // Access the name property of the item
             imageUrl: item.imageUrl, // Access the imageUrl property of the item
-            count: quantity // Set count to quantity
+            count: quantity, // Set count to quantity,
+            productCategory: productCategory
           };
         }
       } else {
@@ -224,16 +224,13 @@ app.post('/admin/fanshop/delete/:id', async (req, res) => {
 
     const item = await FanShopItem.findById(itemId);
 
-    // Provera da li je pronađen proizvod sa datim ID-om
     if (!item) {
       return res.status(404).send('Fan shop item not found');
     }
-
-    // Ako je količina proizvoda sada manja ili jednaka 0, brišemo proizvod iz baze
     if (item.quantity <= 0) {
       await FanShopItem.findByIdAndDelete(itemId);
     } else {
-      await item.save(); // Čuvanje izmenjenog proizvoda
+      await item.save(); 
     }
 
     res.redirect('/admin');
@@ -277,8 +274,8 @@ app.post('/add-to-cart', (req, res) => {
       req.session.cart = [];
   }
 
-  const { id, name, price, imageUrl, quantity, size } = req.body; 
-  const item = { _id: id, name, price, imageUrl,quantity, size }; 
+  const { id, name, price, imageUrl, quantity, size, productCategory } = req.body; 
+  const item = { _id: id, name, price, imageUrl,quantity, size, productCategory }; 
   req.session.cart.push(item);
 
   res.json({ success: true, cartItemCount: req.session.cart.length });
@@ -296,14 +293,14 @@ app.post('/purchase-cart', async (req, res) => {
       const purchasePromises = cart.map(item => {
           return new Purchase({
               userId,
-              itemId: item._id,  // Ensure the item object contains the _id
-              quantity: item.quantity  // Store quantity if needed
+              itemId: item._id,  
+              quantity: item.quantity,
+              productCategory: item.productCategory 
           }).save();
       });
 
       await Promise.all(purchasePromises);
 
-      // Clear the cart after purchase
       req.session.cart = [];
 
       res.redirect('/profil');
@@ -324,6 +321,7 @@ app.get('/cart-items', (req, res) => {
 
 app.get('/sviartikli', async (req, res) => {
   const { categories } = req.query;
+  const { user, error, successMessage } = req.session;
   let filter = {};
   if (categories) {
       const categoryArray = categories.split(',');
@@ -331,15 +329,15 @@ app.get('/sviartikli', async (req, res) => {
   }
 
   try {
-      // Fetch all unique categories
       const allCategories = await FanShopItem.distinct('category');
-
-      // Fetch filtered items based on the category filter
       const fanShopItems = await FanShopItem.find(filter);
 
       res.render('sviartikli', {
           fanShopItems,
-          allCategories
+          allCategories,
+          user,
+          error,
+          successMessage
       });
   } catch (error) {
       console.error(error);

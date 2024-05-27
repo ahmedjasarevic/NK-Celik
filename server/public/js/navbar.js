@@ -13,7 +13,9 @@ $(document).ready(function() {
   // Add item to cart
   $('.add-to-cart-btn').click(function() {
       var productId = $('.item-id').text();
+      productId = productId.length > 24 ? productId.substring(0, 24) : productId;
       var productName = $('.item-title').text();
+      var productCategory = $('.item-category').text();
       var productPrice = $('.price-title').text();
       var productImage = $('.image-wrapper img:visible').attr('src');
       var quantity = $('#quantity').text();
@@ -24,14 +26,15 @@ $(document).ready(function() {
           alert('Morate odabrati veličinu prije dodavanja proizvoda u korpu.');
           return;
       }
-
+      console.log(productCategory)
       $.post('/add-to-cart', {
           id: productId,
           name: productName,
           price: productPrice,
           imageUrl: productImage,
           quantity: quantity,
-          size: size
+          size: size,
+          productCategory: productCategory
       }, function(data) {
           if (data.success) {
               updateCartCount();
